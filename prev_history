@@ -208,41 +208,41 @@
  4728  ls
  4729  clear
  4730  zcat /usr/share/man/man1/make.1.gz
- 4731  man man-pages
- 4732  man man.7
- 4733  clear
- 4734  ls
- 4735  clear
- 4736  git status
- 4737  clear
- 4738  ls
- 4739  clear
- 4740  ls
- 4741  clear
- 4742  git status
- 4743  clear
+ 4731* man man-pages
+ 4732* man man.7
+ 4733* clear
+ 4734* ls
+ 4735* clear
+ 4736* git status
+ 4737* clear
+ 4738* ls
+ 4739* clear
+ 4740* ls
+ 4741* clear
+ 4742* git status
+ 4743* clear
  4744  echo zcat /usr/share/man/man1/make.1.gz | xclip -selection c
- 4745  zcat /usr/share/man/man1/make.1.gz
- 4746  man <(zcat /usr/share/man/man1/make.1.gz)
+ 4745* zcat /usr/share/man/man1/make.1.gz
+ 4746* man <(zcat /usr/share/man/man1/make.1.gz)
  4747  zcat /usr/share/man/man1/make.1.gz | less
- 4748  ls
- 4749  man man-pages
- 4750  man man.7
- 4751* clear
- 4752* ls
- 4753* clear
- 4754* whereis git-status
- 4755* man zcat
- 4756* zcat "$(which git-status)"
- 4757* which git-status
- 4758* zcat "$(whereis git-status | awk -F ' ' '{print $2}')"
- 4759  man sed
- 4760  info sed
- 4761  man 7 regex
- 4762  man sed
- 4763  man awk
- 4764  man ed
- 4765  info ed
+ 4748* ls
+ 4749* man man-pages
+ 4750* man man.7
+ 4751  clear
+ 4752  ls
+ 4753  clear
+ 4754  whereis git-status
+ 4755  man zcat
+ 4756  zcat "$(which git-status)"
+ 4757  which git-status
+ 4758  zcat "$(whereis git-status | awk -F ' ' '{print $2}')"
+ 4759* man sed
+ 4760* info sed
+ 4761* man 7 regex
+ 4762* man sed
+ 4763* man awk
+ 4764* man ed
+ 4765* info ed
  4766* man ed
  4767* ls
  4768* zcat "$(whereis git-status | awk -F ' ' '{print $2}')"
@@ -258,99 +258,99 @@
  4778* ls
  4779* ed -h
  4780* man sed
- 4781  info sed
- 4782  clear
- 4783  ls
- 4784  clear
- 4785  sed '1,2p' README.md
- 4786  clear
- 4787  man sed
- 4788  sed '1,2p' README.md
- 4789  clear
- 4790  man sed
- 4791  sed -n 1,2p README.md
- 4792  man sed
- 4793  zcat
- 4794  clear
- 4795  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | ed '\.SH[[:space:]]{1}\"CONFIGURATION\"',$p
- 4796  zcat "$(whereis git-status | awk -F ' ' '{print $2}')"
- 4797  clear
- 4798  zcat /usr/share/man/man1/make.1.gz | less
- 4799  clear
- 4800  zcat /usr/share/man/man1/make.1.gz | sed -n '1,3p'
- 4801  zcat /usr/share/man/man1/make.1.gz | sed -n '1,7p'
+ 4781* info sed
+ 4782* clear
+ 4783* ls
+ 4784* clear
+ 4785* sed '1,2p' README.md
+ 4786* clear
+ 4787* man sed
+ 4788* sed '1,2p' README.md
+ 4789* clear
+ 4790* man sed
+ 4791* sed -n 1,2p README.md
+ 4792* man sed
+ 4793* zcat
+ 4794* clear
+ 4795* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | ed '\.SH[[:space:]]{1}\"CONFIGURATION\"',$p
+ 4796* zcat "$(whereis git-status | awk -F ' ' '{print $2}')"
+ 4797* clear
+ 4798* zcat /usr/share/man/man1/make.1.gz | less
+ 4799* clear
+ 4800* zcat /usr/share/man/man1/make.1.gz | sed -n '1,3p'
+ 4801* zcat /usr/share/man/man1/make.1.gz | sed -n '1,7p'
  4802* man sed
- 4803  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,7p'
- 4804  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH/p'
- 4805  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^/p'
- 4806  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.ss/p'
- 4807  man 7 regex
- 4808  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.ss/p'
- 4809  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH/p'
- 4810  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.ss/p'
- 4811  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.ss/p'
- 4812  zcat /usr/share/man/man1/make.1.gz | sed -n '1,7p'
- 4813  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.B/p'
- 4814  man 7 regex
- 4815  info regex
- 4816  info 7 regex
- 4817  info regex
- 4818  man 3 regex
- 4819  echo "Salut les amis" | grep -E "les|le"
- 4820  clear
- 4821  echo ".SH Description" | grep -E "^\.SH|^\.B"
- 4822  echo ".Sb Description" | grep -E "^\.SH|^\.B"
- 4823  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.B/p'
- 4824  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.sa/p'
- 4825  man sed
- 4826  man 7 regex
- 4827  info sed
- 4828* clear
- 4829* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH\|^\.sa/p'
- 4830* man 7 man-pages
- 4831  whereis regex
- 4832  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH\|^\.sa/p'
- 4833  man <(zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH\|^\.sa/p')
- 4834  zcat "$(whereis git-status | awk -F ' ' '{print $2}')"
+ 4803* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,7p'
+ 4804* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH/p'
+ 4805* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^/p'
+ 4806* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.ss/p'
+ 4807* man 7 regex
+ 4808* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.ss/p'
+ 4809* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH/p'
+ 4810* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.ss/p'
+ 4811* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.ss/p'
+ 4812* zcat /usr/share/man/man1/make.1.gz | sed -n '1,7p'
+ 4813* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.B/p'
+ 4814* man 7 regex
+ 4815* info regex
+ 4816* info 7 regex
+ 4817* info regex
+ 4818* man 3 regex
+ 4819* echo "Salut les amis" | grep -E "les|le"
+ 4820* clear
+ 4821* echo ".SH Description" | grep -E "^\.SH|^\.B"
+ 4822* echo ".Sb Description" | grep -E "^\.SH|^\.B"
+ 4823* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.B/p'
+ 4824* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH|^\.sa/p'
+ 4825* man sed
+ 4826* man 7 regex
+ 4827* info sed
+ 4828  clear
+ 4829  zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH\|^\.sa/p'
+ 4830  man 7 man-pages
+ 4831* whereis regex
+ 4832* zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH\|^\.sa/p'
+ 4833* man <(zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH\|^\.sa/p')
+ 4834* zcat "$(whereis git-status | awk -F ' ' '{print $2}')"
  4835* man git-status
- 4836  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep Short Format
- 4837  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep "Short Format"
- 4838  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n "^\.SS[:space:]?Short[:space:]{1}Format\,^\.SS\|^\.SHp"
- 4839  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n "/^\.SS[:space:]?Short[:space:]{1}Format\/,/^\.SS\|^\.SH/p"
- 4840  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n "/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format\/,/^\.SS\|^\.SH/p"
- 4841  man <(zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH\|^\.sa/p')
- 4842  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format\/,/^\.SS\|^\.SH/p'
- 4843  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,/^\.SS\|^\.SH/p'
- 4844  echo -e "salut\nles amis"
- 4845  echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
- 4846  echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | grep -E '^\.SS[[:space:]]{1}Short[[:space:]]{1}Format'
- 4847  echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n '/Format/,$p'
- 4848  echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
- 4849  info sed
- 4850  man sed
- 4851  echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
- 4852  man regec
- 4853  man regex
- 4854  man regex.7
- 4855  clear
- 4856  ls
- 4857  clear
- 4858  echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
- 4859  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,/^\.SS\|^\.SH/p'
- 4860  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
- 4861  echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
- 4862  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | less
- 4863  echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,$p'
- 4864  echo -e '.SS "Short Format"\nSalut les amis\n.SH Salut' | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,$p'
- 4865  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,$p'
- 4866  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,/^\.SS^|^\.SH/p'
- 4867  man <(zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,/^\.SS^|^\.SH/p')
- 4868  man sed
- 4869  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | less
- 4870  man sed
- 4871  man <(zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '0,/^\.SH/p;/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,/^\.SS^|^\.SH/p')
- 4872  man git-status
- 4873  man <(zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '0,/^\.SH/p;/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,/^\.SS^|^\.SH/p')
+ 4836* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep Short Format
+ 4837* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep "Short Format"
+ 4838* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n "^\.SS[:space:]?Short[:space:]{1}Format\,^\.SS\|^\.SHp"
+ 4839* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n "/^\.SS[:space:]?Short[:space:]{1}Format\/,/^\.SS\|^\.SH/p"
+ 4840* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n "/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format\/,/^\.SS\|^\.SH/p"
+ 4841* man <(zcat /usr/share/man/man1/make.1.gz | sed -n '/^\.SH NAME/,/^\.SH\|^\.sa/p')
+ 4842* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format\/,/^\.SS\|^\.SH/p'
+ 4843* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,/^\.SS\|^\.SH/p'
+ 4844* echo -e "salut\nles amis"
+ 4845* echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
+ 4846* echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | grep -E '^\.SS[[:space:]]{1}Short[[:space:]]{1}Format'
+ 4847* echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n '/Format/,$p'
+ 4848* echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
+ 4849* info sed
+ 4850* man sed
+ 4851* echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
+ 4852* man regec
+ 4853* man regex
+ 4854* man regex.7
+ 4855* clear
+ 4856* ls
+ 4857* clear
+ 4858* echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
+ 4859* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,/^\.SS\|^\.SH/p'
+ 4860* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
+ 4861* echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n -E '/^\.SS[[:space:]]{1}Short[[:space:]]{1}Format/,$p'
+ 4862* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | less
+ 4863* echo -e ".SS Short Format\nSalut les amis\n.SH Salut" | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,$p'
+ 4864* echo -e '.SS "Short Format"\nSalut les amis\n.SH Salut' | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,$p'
+ 4865* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,$p'
+ 4866* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,/^\.SS^|^\.SH/p'
+ 4867* man <(zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,/^\.SS^|^\.SH/p')
+ 4868* man sed
+ 4869* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | less
+ 4870* man sed
+ 4871* man <(zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '0,/^\.SH/p;/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,/^\.SS^|^\.SH/p')
+ 4872* man git-status
+ 4873* man <(zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | sed -n -E '0,/^\.SH/p;/^\.SS[[:space:]]{1}"Short[[:space:]]{1}Format"/,/^\.SS^|^\.SH/p')
  4874* clear
  4875* ls
  4876* clear
@@ -375,25 +375,25 @@
  4895* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep -E '^\.SH'
  4896* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep -E '^\.SH\|^\.SS'
  4897* zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep -E '^\.SH|^\.SS'
- 4898  clear
- 4899  ..
- 4900  ls
- 4901  cd scr
- 4902  cd Scripts
- 4903  clear
- 4904  ls
- 4905  git status
- 4906  clear
- 4907  ls
- 4908  vi man_pages_section.sh
- 4909  whereis bash
- 4910  clear
- 4911  vi man_pages_section.sh
- 4912  clear
- 4913  ls
- 4914  vi man_pages_section.sh
- 4915  clear
- 4916  vi man_pages_section.sh
+ 4898* clear
+ 4899* ..
+ 4900* ls
+ 4901* cd scr
+ 4902* cd Scripts
+ 4903* clear
+ 4904* ls
+ 4905* git status
+ 4906* clear
+ 4907* ls
+ 4908* vi man_pages_section.sh
+ 4909* whereis bash
+ 4910* clear
+ 4911* vi man_pages_section.sh
+ 4912* clear
+ 4913* ls
+ 4914* vi man_pages_section.sh
+ 4915* clear
+ 4916* vi man_pages_section.sh
  4917* man bash
  4918* bat ../netpractice/sources/main.sh
  4919* bat ../netpractice/sources/conv_address.sh
@@ -486,13 +486,13 @@
  5006* whereis awk  | grep -E '[[:space:]]+.+\/man[[:digit:]]?\/[^[[:space:]]]+[[:space:]]+'
  5007* man regex
  5008* man grep
- 5009* ls
- 5010* ../Scripts
- 5011* ls
- 5012* whereis awk  | grep -E '[[:space:]]+.+\/man[[:digit:]]?\/[^[[:space:]]]+[[:space:]]+'
- 5013* whereis awk | grep -E '[^[:space:]]+'
- 5014* whereis awk  | grep -E '[[:space:]]+.+\/man[[:digit:]]?\/[^[[:space:]]]+[[:space:]]+'
- 5015* man grep
+ 5009  ls
+ 5010  ../Scripts
+ 5011  ls
+ 5012  whereis awk  | grep -E '[[:space:]]+.+\/man[[:digit:]]?\/[^[[:space:]]]+[[:space:]]+'
+ 5013  whereis awk | grep -E '[^[:space:]]+'
+ 5014  whereis awk  | grep -E '[[:space:]]+.+\/man[[:digit:]]?\/[^[[:space:]]]+[[:space:]]+'
+ 5015  man grep
  5016* whereis awk  | grep -E '[[:space:]]+.+\/man[[:digit:]]?\/[^[[:space:]]]+[[:space:]]+'
  5017* whereis awk  | grep -E -o '\<[^ ]*man[^ ]*\>'
  5018* whereis printf  | grep -E -o '\<[^ ]*man[^ ]*\>'
@@ -523,51 +523,442 @@
  5043* echo "*"
  5044* whereis printf  | grep -E -o '\<[^ ]*man[^ ]*\>' | tr '\n' ' ' | awk '{ print $1 }'
  5045* whereis printf  | grep -E -o "\<[^ ]*man[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }'
- 5046  chmod +x man_pages_section.sh
- 5047  ./man_pages_section.sh
- 5048  vi man_pages_section.sh
- 5049  ./man_pages_section.sh
- 5050  vi man_pages_section.sh
- 5051  ./man_pages_section.sh
- 5052  vi man_pages_section.sh
+ 5046* chmod +x man_pages_section.sh
+ 5047* ./man_pages_section.sh
+ 5048* vi man_pages_section.sh
+ 5049* ./man_pages_section.sh
+ 5050* vi man_pages_section.sh
+ 5051* ./man_pages_section.sh
+ 5052* vi man_pages_section.sh
  5053* man grep
- 5054  ./man_pages_section.sh
- 5055  vi man_pages_section.sh
- 5056  ./man_pages_section.sh wait 2
- 5057  vi man_pages_section.sh
- 5058  ./man_pages_section.sh wait 2
- 5059  vi man_pages_section.sh
- 5060  ./man_pages_section.sh wait 2
- 5061  vi man_pages_section.sh
- 5062  ./man_pages_section.sh wait 2
- 5063  vi man_pages_section.sh
- 5064  ./man_pages_section.sh wait.2
- 5065  vi man_pages_section.sh
- 5066  ./man_pages_section.sh wait.2
- 5067  vi man_pages_section.sh
- 5068  ./man_pages_section.sh wait.2
- 5069  vi man_pages_section.sh
- 5070  ./man_pages_section.sh wait.2
- 5071  vi man_pages_section.sh
- 5072  ./man_pages_section.sh wait.2
- 5073  vi man_pages_section.sh
- 5074  ./man_pages_section.sh wait.3
- 5075  vi man_pages_section.sh
- 5076  clear
- 5077  ls
- 5078  clear
- 5079  vi man_pages_section.sh
- 5080  ./man_pages_section.sh wait.3
- 5081  vi man_pages_section.sh
- 5082  man source
- 5083  vi man_pages_section.sh
- 5084  git status
- 5085  vi man_pages_section.sh
- 5086  git add man_pages_section.sh
- 5087  git diff --staged
- 5088  git commit -m "feat(man_pages_section): :sparkles: Added find_page_section function :sparkles:"
- 5089  git push
- 5090  ls
- 5091  vi man_pages_section.sh
- 5092  clear
- 5093  git checkout -b save_history
+ 5054* ./man_pages_section.sh
+ 5055* vi man_pages_section.sh
+ 5056* ./man_pages_section.sh wait 2
+ 5057* vi man_pages_section.sh
+ 5058* ./man_pages_section.sh wait 2
+ 5059* vi man_pages_section.sh
+ 5060* ./man_pages_section.sh wait 2
+ 5061* vi man_pages_section.sh
+ 5062* ./man_pages_section.sh wait 2
+ 5063* vi man_pages_section.sh
+ 5064* ./man_pages_section.sh wait.2
+ 5065* vi man_pages_section.sh
+ 5066* ./man_pages_section.sh wait.2
+ 5067* vi man_pages_section.sh
+ 5068* ./man_pages_section.sh wait.2
+ 5069* vi man_pages_section.sh
+ 5070* ./man_pages_section.sh wait.2
+ 5071* vi man_pages_section.sh
+ 5072* ./man_pages_section.sh wait.2
+ 5073* vi man_pages_section.sh
+ 5074* ./man_pages_section.sh wait.3
+ 5075* vi man_pages_section.sh
+ 5076* clear
+ 5077* ls
+ 5078* clear
+ 5079* vi man_pages_section.sh
+ 5080* ./man_pages_section.sh wait.3
+ 5081* vi man_pages_section.sh
+ 5082* man source
+ 5083* vi man_pages_section.sh
+ 5084* git status
+ 5085* vi man_pages_section.sh
+ 5086* git add man_pages_section.sh
+ 5087* git diff --staged
+ 5088* git commit -m "feat(man_pages_section): :sparkles: Added find_page_section function :sparkles:"
+ 5089* git push
+ 5090* ls
+ 5091* vi man_pages_section.sh
+ 5092* clear
+ 5093* git checkout -b save_history
+ 5094* history | sed -n 4521,+10000p > prev_history
+ 5095* git add prev_history
+ 5096* git commit -m "feat(prev_history): :sparkles: Added history save in case of vm crash :sparkles:"
+ 5097* git push
+ 5098* git push -u origin save_history
+ 5099* clear
+ 5100* git status
+ 5101* clear
+ 5102* ls
+ 5103* clear
+ 5104* git status
+ 5105* clear
+ 5106* ..
+ 5107* clear
+ 5108* cd -
+ 5109* git checkout main
+ 5110* clear
+ 5111* git status
+ 5112* clear
+ 5113* ls
+ 5114* vi man_pages_section.sh
+ 5115* bash -c "find . -type f -name abcs"
+ 5116* bash -c "find . -type f -name abcs" && echo $?
+ 5117* find . -type f -name abc
+ 5118* echo $?
+ 5119* find . -type f -name README
+ 5120* ls
+ 5121* find . -type f -name README*
+ 5122* find . -type f -name *t*
+ 5123* find . -type f -name "*t*"
+ 5124* find . -type f -name "*t*" | sed -n 1
+ 5125* find . -type f -name "*t*" | sed -n 1,2
+ 5126* find . -type f -name "*t*" | sed -n 1,2p
+ 5127* find . -type f -name "*t*" | sed -n 1,1p
+ 5128* find . -type f -name "*t*" | head -n 1
+ 5129* clear
+ 5130* man bash
+ 5131* git status
+ 5132* clear
+ 5133* git checkout save_history
+ 5134* git branch -M man_pages_sections
+ 5135* git push
+ 5136* git push -u origin man_pages_sections
+ 5137* git push origin --delete save_history
+ 5138* clear
+ 5139* git status
+ 5140* clear
+ 5141* git status
+ 5142* ls
+ 5143* git status
+ 5144* git diff
+ 5145* git checkout main
+ 5146* git diff
+ 5147* git status
+ 5148* vi man_pages_section.sh
+ 5149* git stash
+ 5150* git checkout man_pages_sections
+ 5151* git stash apply
+ 5152* git stash drop
+ 5153* git add man_pages_section.sh
+ 5154* git commit -m "feat(man_pages_section): :construction: Improved function source file :construction:"
+ 5155* git push
+ 5156* clear
+ 5157* ls
+ 5158* vi man_pages_section.sh
+ 5159* curl -s https://raw.githubusercontent.com/nsainton/Scripts/main/utils/colorcodes.sh
+ 5160* ./man_pages_section.sh
+ 5161* vi man_pages_section.sh
+ 5162* ./man_pages_section.sh
+ 5163* vi man_pages_section.sh
+ 5164* ./man_pages_section.sh
+ 5165* vi man_pages_section.sh
+ 5166* ./man_pages_section.sh
+ 5167* ls
+ 5168* ./man_pages_section.sh
+ 5169* vi man_pages_section.sh
+ 5170* ./man_pages_section.sh
+ 5171* vi man_pages_section.sh
+ 5172* ./man_pages_section.sh
+ 5173* vi man_pages_section.sh
+ 5174* ./man_pages_section.sh
+ 5175* vi man_pages_section.sh
+ 5176* man wholename
+ 5177* man find
+ 5178* vi man_pages_section.sh
+ 5179* ./man_pages_section.sh
+ 5180* vi man_pages_section.sh
+ 5181* ./man_pages_section.sh color.sh
+ 5182* vi man_pages_section.sh
+ 5183* ./man_pages_section.sh color.sh
+ 5184* vi man_pages_section.sh
+ 5185* ./man_pages_section.sh color.sh
+ 5186* vi man_pages_section.sh
+ 5187* ./man_pages_section.sh color.sh
+ 5188* vi man_pages_section.sh
+ 5189* ./man_pages_section.sh color.sh
+ 5190* vi man_pages_section.sh
+ 5191* clear
+ 5192* ..
+ 5193* ls
+ 5194* cd videos
+ 5195* ../Scripts/man_pages_section.sh colorcodes.sh
+ 5196* vi man_pages_section.sh
+ 5197* cd ../Scripts/
+ 5198* vi man_pages_section.sh
+ 5199* cd ../Scripts/
+ 5200* cd -
+ 5201* cd ../videos
+ 5202* ../Scripts/man_pages_section.sh colorcodes.sh
+ 5203* vi man_pages_section.sh
+ 5204* cd -
+ 5205* vi man_pages_section.sh
+ 5206* clear
+ 5207* cd ../videos
+ 5208* ../Scripts/man_pages_section.sh colorcodes
+ 5209* ../Scripts/man_pages_section.sh colorcodes.sh
+ 5210* curl -s https://raw.githubusercontent.com/nsainton/Scripts/main/colorcodes.sh 
+ 5211* ../Scripts/man_pages_section.sh utils/colorcodes.sh
+ 5212* clear
+ 5213* ../Scripts/man_pages_section.sh utils/colorcodes.sh
+ 5214* echo $CREST
+ 5215* echo $CRESET
+ 5216* echo $RED
+ 5217* clear
+ 5218* env
+ 5219* curl -s https://raw.githubusercontent.com/nsainton/Scripts/main/utils/colorcodes.sh 
+ 5220* source <(curl -s https://raw.githubusercontent.com/nsainton/Scripts/main/utils/colorcodes.sh)
+ 5221* env
+ 5222* echo $CRESET
+ 5223* echo $CRESET | cat -e
+ 5224* cklear
+ 5225* clear
+ 5226* ls
+ 5227* exit
+ 5228* git add man_pages_section.sh
+ 5229* git commit -m "fix(source_file): :adhesive_bandage: Fixed curl issues :adhesive_bandage:"
+ 5230* git push
+ 5231* clear
+ 5232* ls
+ 5233* vi man_pages_section.sh
+ 5234  curl sad
+ 5235  curl -s https://raw.githubusercontent.com/nsainton/Scripts/main/utis/colorcodes.sh
+ 5236  echo $?
+ 5237  curl -s https://regexr.com/
+ 5238  curl -s https://regexr.com/asd
+ 5239  curl -s https://regexrw.com
+ 5240  echo $?
+ 5241  clear
+ 5242  curl -s https://regexr.com/asd
+ 5243  clear
+ 5244  curl -s https://raw.githubusercontent.com/nsainton/Scripts/main/utis/colorcodes.sh
+ 5245* ./man_pages_section.sh color.sh
+ 5246* vi man_pages_section.sh
+ 5247* echo "400: Not found" | grep -E "[[:digit:]]"
+ 5248* echo "400: Not found" | grep -E "[[:space:]]"
+ 5249* echo "400: Not found" | grep -E "[[:punct:]]"
+ 5250* echo "400: Not found" | grep -E "[[:g:]]"
+ 5251* echo "400: Not found" | grep -E "g"
+ 5252* echo $?
+ 5253* clear
+ 5254* ./man_pages_section.sh color.sh
+ 5255* vi man_pages_section.sh
+ 5256  ./man_pages_section.sh color.sh
+ 5257  ./man_pages_section.sh color.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5258  ./man_pages_section.sh colors.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5259  vi man_pages_section.sh
+ 5260* ./man_pages_section.sh color.sh
+ 5261* vi man_pages_section.sh
+ 5262* ./man_pages_section.sh color.sh
+ 5263* vi man_pages_section.sh
+ 5264* ./man_pages_section.sh color.sh
+ 5265* vi man_pages_section.sh
+ 5266* ./man_pages_section.sh color.sh
+ 5267* vi man_pages_section.sh
+ 5268* ./man_pages_section.sh color.sh
+ 5269* vi man_pages_section.sh
+ 5270* ./man_pages_section.sh color.sh
+ 5271* vi man_pages_section.sh
+ 5272* ./man_pages_section.sh color.sh
+ 5273* vi man_pages_section.sh
+ 5274* ./man_pages_section.sh color.sh
+ 5275* vi man_pages_section.sh
+ 5276* ./man_pages_section.sh colors.sh
+ 5277* ./man_pages_section.sh color.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5278* ./man_pages_section.sh colors.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5279* ./man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5280* cd ../videos
+ 5281* ../Scripts/man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5282* ../Scripts/man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utils/
+ 5283  vi man_pages_section.sh
+ 5284  ../Scripts/man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utils/
+ 5285  cd -
+ 5286  ../Scripts/man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utils/
+ 5287  vi man_pages_section.sh
+ 5288  cd -
+ 5289  vi man_pages_section.sh
+ 5290  git add man_pages_section.sh
+ 5291  git commit -m "feat(man_pages_sections): :sparkles: Added multiple source in source_file :sparkles:"
+ 5292  git push
+ 5293  clear
+ 5294  vi man_pages_section.sh
+ 5295* clear
+ 5296  vi man_pages_section.sh
+ 5297  ./man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5298  vi man_pages_section.sh
+ 5299  ./man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5300  clear
+ 5301  vi man_pages_section.sh
+ 5302  clear
+ 5303  ./man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5304  vi man_pages_section.sh
+ 5305  ./man_pages_section.sh colorcodes.sh https://raw.githubusercontent.com/nsainton/Scripts/main/utis/
+ 5306  ./man_pages_section.sh awk.1
+ 5307  vi man_pages_section.sh
+ 5308  ./man_pages_section.sh awk.1
+ 5309  vi man_pages_section.sh
+ 5310  ./man_pages_section.sh awk.1
+ 5311  clear
+ 5312  git status
+ 5313  git add man_pages_section.sh
+ 5314  git commit -m "feat(man_pages_section): :sparkles: Integrated function source file into main function :sparkles:"
+ 5315  git push
+ 5316  clear
+ 5317  ls
+ 5318  clear
+ 5319  vi man_pages_section.sh
+ 5320  ./man_pages_section.sh awk.1
+ 5321  ./man_pages_section.sh awk
+ 5322  zcat usr/share/man/man1/awk.1.gz
+ 5323  ./man_pages_section.sh git-status.1
+ 5324  ./man_pages_section.sh git-status
+ 5325* whereis git-status
+ 5326  zcat /usr/share/man/man1/git-status.1.gz
+ 5327  clear
+ 5328  vi man_pages_section.sh
+ 5329  git status
+ 5330  git diff man_pages_section.sh
+ 5331  git commit -m "feat(man_pages_section): :construction: Started implementing list sections function :construction:"
+ 5332  git add man_pages_section.sh
+ 5333  git commit -m "feat(man_pages_section): :construction: Started implementing list sections function :construction:"
+ 5334  git push
+ 5335  clear
+ 5336  vi man_pages_section.sh
+ 5337* whereis "git-status"  | grep -E -o "\<[^ ]*man${section}[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }'
+ 5338  ./man_pages_section.sh git-status.1
+ 5339  vi man_pages_section.sh
+ 5340  ./man_pages_section.sh git-status.1
+ 5341  vi man_pages_section.sh
+ 5342  ./man_pages_section.sh git-status.1
+ 5343  vi man_pages_section.sh
+ 5344* bat ../netpractice/sources/launcher.sh
+ 5345  ./man_pages_section.sh git-status.1
+ 5346  vi man_pages_section.sh
+ 5347  ./man_pages_section.sh git-status.1
+ 5348  vi man_pages_section.sh
+ 5349  ./man_pages_section.sh git-status.1
+ 5350  vi man_pages_section.sh
+ 5351  ./man_pages_section.sh "Short Format"
+ 5352  vi man_pages_section.sh
+ 5353  ./man_pages_section.sh
+ 5354  vi man_pages_section.sh
+ 5355  ./man_pages_section.sh
+ 5356  vi man_pages_section.sh
+ 5357  ./man_pages_section.sh
+ 5358  vi man_pages_section.sh
+ 5359  ./man_pages_section.sh
+ 5360  ./man_pages_section.sh Short Format
+ 5361  ./man_pages_section.sh "Short Format"
+ 5362  ./man_pages_section.sh 'Short Format'
+ 5363  vi man_pages_section.sh
+ 5364  ./man_pages_section.sh 'Short Format'
+ 5365  vi man_pages_section.sh
+ 5366  ./man_pages_section.sh 'Short Format'
+ 5367  vi man_pages_section.sh
+ 5368  ./man_pages_section.sh 'Short Format'
+ 5369  vi man_pages_section.sh
+ 5370* man case
+ 5371  ./man_pages_section.sh 'Short Format'
+ 5372  vi man_pages_section.sh
+ 5373  ./man_pages_section.sh 'Short Format'
+ 5374  vi man_pages_section.sh
+ 5375* bat ../netpractice/sources/launcher.sh
+ 5376* clear
+ 5377* exit
+ 5378  ./man_pages_section.sh 'Short Format'
+ 5379  man grep
+ 5380  clear
+ 5381  vi man_pages_section.sh
+ 5382  git diff
+ 5383  git add man_pages_section.sh
+ 5384  git commit -m "feat(man_pages_section): :sparkles: Added build_regex function :sparkles:"
+ 5385  git push
+ 5386  clear
+ 5387  ls
+ 5388  vi man_pages_section.sh
+ 5389  ./man_pages_section.sh awk.1
+ 5390  ./man_pages_section.sh awk.1 | sed -n '.SS SYNOPSIS,+1p'
+ 5391  ./man_pages_section.sh awk.1 | sed -n '/\.SS SYNOPSIS/,+1p'
+ 5392  ./man_pages_section.sh awk.1 | sed -n '/\.SS SYNOPSIS*/,+1p'
+ 5393  ./man_pages_section.sh awk.1 | sed -n '/\.SS SYNOPSIS*/,+2p'
+ 5394  ./man_pages_section.sh awk.1 | grep -E '\.SS SYNOPSIS*'
+ 5395  ./man_pages_section.sh awk.1 | cat -e
+ 5396  ./man_pages_section.sh awk.1 | grep -E '^\.SS SYNOPSIS*'
+ 5397  ./man_pages_section.sh awk.1 | grep -E '^\.SS SYNOPSIS*$'
+ 5398  ./man_pages_section.sh awk.1 | grep -E '^\.SS SYNOPSIS*'
+ 5399  man 7 regex
+ 5400  ./man_pages_section.sh awk.1 | grep -E '^\.SS*'
+ 5401  ./man_pages_section.sh awk.1 | grep -E '^\.SS\ '
+ 5402  ./man_pages_section.sh awk.1 | grep -E '^\.SH SYNOPSIS*$'
+ 5403  ./man_pages_section.sh awk.1 | grep -E '^\.SH SYNOPSIS*'
+ 5404  ./man_pages_section.sh awk.1 | grep -E '^\.SH SYNOPSIS$'
+ 5405  ./man_pages_section.sh awk.1 | sed -n '/^\.SH SYNOPSIS$/,+1p'
+ 5406  vi man_pages_section.sh
+ 5407  ./man_pages_section.sh ".SS SYNOPSIS"
+ 5408  vi man_pages_section.sh
+ 5409  ./man_pages_section.sh ".SS SYNOPSIS"
+ 5410  ./man_pages_section.sh awk.1 ".SS SYNOPSIS"
+ 5411  vi man_pages_section.sh
+ 5412  ./man_pages_section.sh awk.1 ".SS SYNOPSIS"
+ 5413  vi man_pages_section.sh
+ 5414  ./man_pages_section.sh awk.1 ".SS SYNOPSIS"
+ 5415  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5416  vi man_pages_section.sh
+ 5417  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5418  vi man_pages_section.sh
+ 5419  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5420  vi man_pages_section.sh
+ 5421  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5422  vi man_pages_section.sh
+ 5423  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5424  vi man_pages_section.sh
+ 5425  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5426  vi man_pages_section.sh
+ 5427  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5428  vi man_pages_section.sh
+ 5429  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5430  vi man_pages_section.sh
+ 5431  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5432  vi man_pages_section.sh
+ 5433  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5434  vi man_pages_section.sh
+ 5435  ./man_pages_section.sh awk.1 ".SH SYNOPSIS"
+ 5436  ./man_pages_section.sh git-status ".SH SYNOPSIS"
+ 5437  clear
+ 5438  ./man_pages_section.sh git-status ".SH SYNOPSIS"
+ 5439  vi man_pages_section.sh
+ 5440  ./man_pages_section.sh git-status ".SH SYNOPSIS"
+ 5441  vi man_pages_section.sh
+ 5442  ./man_pages_section.sh git-status '".SH SYNOPSIS"'
+ 5443  vi man_pages_section.sh
+ 5444  echo "$(zcat \"$(whereis git-status | awk -F ' ' '{print $2}')\" | grep -E '^\.SH\|^\.SS')"
+ 5445  echo "$(zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep -E '^\.SH\|^\.SS')"
+ 5446  echo zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep -E '^\.SH|^\.SS'
+ 5447  zcat "$(whereis git-status | awk -F ' ' '{print $2}')" | grep -E '^\.SH|^\.SS'
+ 5448  zcat "$(whereis awk | awk -F ' ' '{print $2}')" | grep -E '^\.SH|^\.SS'
+ 5449  zcat /usr/share/man/man1/git-status.1.gz
+ 5450  zcat /usr/share/man/man1/awk.1.gz
+ 5451  zcat /usr/share/man/man1/awk.1.gz | grep -E '^\.SS|^
+ 5452  zcat /usr/share/man/man1/awk.1.gz | grep -E '^\.SS|^\.SH'
+ 5453  vi man_pages_section.sh
+ 5454  git status
+ 5455  git diff
+ 5456  git add man_pages_section.sh
+ 5457  git commit -m "feat(man_pages_sections): :construction: Started implementation of function pick_section :construction:"
+ 5458  git push
+ 5459  clear
+ 5460  ..
+ 5461  l
+ 5462  clear
+ 5463  git status
+ 5464  vi test.c
+ 5465  ls
+ 5466  clear
+ 5467  cc test.c
+ 5468  ./a
+ 5469  ./a.out
+ 5470  vi test.c
+ 5471  ./a.out
+ 5472  cc test.c && ./a.out
+ 5473  wgcc test.c && ./a.out
+ 5474  vi test.c
+ 5475  vi test.c && wgcc test.c && ./a.out
+ 5476  vi test.c
+ 5477  vi test.c && wgcc test.c && ./a.out
+ 5478* man 2 pipw
+ 5479* man 2 pipe
+ 5480  clear
+ 5481  ls
+ 5482  cd Scripts
+ 5483  ls
+ 5484  clear
