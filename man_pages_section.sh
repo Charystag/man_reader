@@ -4,8 +4,6 @@ script_url="https://raw.githubusercontent.com/nsainton/Scripts/main/"
 script_utils_url="https://raw.githubusercontent.com/nsainton/Scripts/main/utils"
 colorcodes="colorcodes.sh"
 
-err404="404: Not Found"
-
 # shellcheck disable=SC2034 # Referenced variable used in function to store
 # user input
 :<<-'USER_INPUT'
@@ -21,13 +19,45 @@ user_input(){
 
 
 :<<-'ADD_SLASH'
-	Takes a path and adds a slash if not already finished with one
+	Takes a path and adds a slash at the beginning or the end if needed.
 	ADD_SLASH
 add_slash(){
+	declare rev_path
 	if [ "$1" = "" ] ; then echo "Please provide a path" ; return ; fi
 	declare -n path="$1"
-	declare rev_path="$(echo $path | rev)"
-	if [ "${rev_path:0:1}" != '/' ] ; then path="${path}/" ; return ; fi
+	if [ "$2" = "b" ]
+	then
+		if [ "${path:0:1}" != '/' ] ; then path="/$path" ; fi
+		return
+	fi
+	rev_path="$(echo $path | rev)"
+	if [ "${rev_path:0:1}" != '/' ] ; then path="${path}/" ; fi
+}
+
+:<<-'BUILD_REGEX'
+	Builds a regex that matches the input string
+	BUILD_REGEX
+build_regex(){
+	declare input
+	declare prompt
+	declare tmp
+	declare -i i
+	input="$1"
+	prompt="please provide a string to match.\nExample: 'Short Format'"
+	if [ "$input" = "" ] ; then user_input "$prompt" input ; fi
+	ret_val=
+	i=0
+	echo input is : $input
+	while [ "$i" -lt "${#input}" ]
+	do
+		tmp="${input:$i:1}"
+		echo "temp [$i] is : $tmp"
+		case "$tmp" in ( [" "] ) ret_val="$ret_val\\$tmp" ;;
+						* ) ret_val="$ret_val$tmp" ;;
+		esac
+		((++i))
+	done
+	echo $ret_val
 }
 
 :<<-'SOURCE_FILE'
@@ -100,6 +130,7 @@ list_sections(){
 	prompt="Please provide the path to a .gz file containing a manpage"
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
+	add_slash page "b"
 	list="$(zcat $page | grep -E '^\.SS|^\.SH')"
 	echo "$list"
 }
@@ -112,3 +143,4 @@ main(){
 }
 
 main $@
+#build_regex "$*"
