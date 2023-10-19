@@ -47,12 +47,10 @@ build_regex(){
 	if [ "$input" = "" ] ; then user_input "$prompt" input ; fi
 	ret_val=
 	i=0
-	echo input is : $input
 	while [ "$i" -lt "${#input}" ]
 	do
 		tmp="${input:$i:1}"
-		echo "temp [$i] is : $tmp"
-		case "$tmp" in ( [" "] ) ret_val="$ret_val\\$tmp" ;;
+		case "$tmp" in ( [" ".] ) ret_val="$ret_val\\$tmp" ;;
 						* ) ret_val="$ret_val$tmp" ;;
 		esac
 		((++i))
@@ -127,19 +125,39 @@ Example: wait.2"
 list_sections(){
 	declare page
 	declare list
-	prompt="Please provide the path to a .gz file containing a manpage"
+	declare prompt="Please provide the path to a .gz file containing a manpage"
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
 	add_slash page "b"
 	list="$(zcat $page | grep -E '^\.SS|^\.SH')"
-	echo "$list"
+	ret_val="$list"
+	echo $ret_val
+}
+
+:<<-'PICK_SECTION'
+	Function that picks the right section with the provided regexp
+	PICK_SECTION
+pick_section(){
+	declare input="$1"
+	declare regex="$2"
+	declare usage="Usage: pick_section input regex"
+	if [ "$2" = "" ] ; then echo "$usage" ; return ; fi
+	echo input is $input
+	echo regex is $regex
+	echo $input | sed -n "/$regex/,+1p" 
+	ret_val=$(echo $input | sed -n "/$regex/,+1p")
+	echo $ret_val
 }
 
 main(){
 	local ret_val
+	local section="${@:2}"
 	source_file  "$colorcodes" "$script_utils_url"
-	find_page_section $@
+	find_page_section $1
 	list_sections $ret_val
+	pick_section "$ret_val" "$(build_regex "$section")"
+	echo $section
+	build_regex "$section"
 }
 
 main $@
