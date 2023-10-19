@@ -199,28 +199,35 @@ pick_section(){
 	Function that cuts a man page using the given sections
 	CUT_MAN
 cut_man(){
+	declare	commands
 	declare page="$1"
 	declare base="$2"
 	declare stop="$3"
 	declare usage="Usage: cut_man man_page base_section stop_section"
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
-	zcat "$page" | \
-	sed -n -E "/$(build_regex "$base"/,/$(build_regex "$stop")/)"
+#	zcat "$page" | sed -n -E 
+	command="0,/$(build_regex ".SH")/ ; "
+	command="${command}$(build_range "$base" "$stop")"
+	zcat "$page" | sed -n -E "$command"
 }
 
 main(){
-	local ret_val
-	local section="${@:2}"
-	local separator="="
+	local	ret_val
+	declare	page
+	declare	section="${@:2}"
+	declare	separator="="
+
 	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $1
+	page="$ret_val"
 	list_sections $ret_val
 	echo $ret_val | tr '=' '\n'
 	pick_section "$ret_val" "$(build_regex "$section")"
 	echo section is : $section
 	echo next_section is : $ret_val
 	build_range "$section" "$ret_val"
+	cut_man "$page" "$section" "$ret_val"
 }
 
 main $@
