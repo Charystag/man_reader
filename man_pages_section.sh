@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 
-curl_url="https://raw.githubusercontent.com/nsainton/Scripts/main/"
+script_url="https://raw.githubusercontent.com/nsainton/Scripts/main/"
+script_utils_url="https://raw.githubusercontent.com/nsainton/Scripts/main/utils"
+colorcodes="colorcodes.sh"
+
 err404="404: Not Found"
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
@@ -43,7 +46,7 @@ source_file(){
 		user_input "Please provide a file :\nExample: colorcodes.sh" filename
 	fi
 	file="$(find . -type f -path "**$filename" | head -n 1)"
-	if [ "$file" != "" ] ; then . "$file" ; echo $file; return ; fi
+	if [ "$file" != "" ] ; then . "$file" ; return ; fi
 	if [ "$2" = "" ] ; then echo "no url provided" ; return ; fi
 	while [ "$i" -lt "${#args[@]}" ]
 	do
@@ -76,22 +79,21 @@ Example: wait.2"
 	IFS='.' read -ra vars <<<"$page"
 	declare section
 	page=${vars[0]}
-	echo $page
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
-	echo section is : $section
 	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man${section}[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
 	if [ "$ret_val" = "" ] && [ "$section" != "" ]
 	then 
-		echo "${page} not found in section ${section}. Picking first match"
+		echo -e "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
 		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
 	fi
+	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; fi
 	echo $ret_val
 }
 
 main(){
 	local ret_val
+	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $@
 }
 
-#main $@
-source_file $@ $curl_url
+main $@
