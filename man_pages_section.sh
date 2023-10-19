@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+curl_url="https://raw.githubusercontent.com/nsainton/Scripts/main/"
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
 # user input
@@ -22,16 +23,20 @@ user_input(){
 source_file(){
 	declare filename="$1"
 	declare file
-	if [ "$filename" -eq "" ]
+	if [ "$filename" = "" ]
 	then
 		user_input "Please provide a file :\nExample: colorcodes.sh" filename
 	fi
-	file="$(find . -type f -name "**$filename" | head -n 1)"
-	if [ "$file" != "" ] ; then . "$file" ; return ; fi
-	if [ "$2" -eq "" ] ; then return ; fi
+	file="$(find . -type f -path "**$filename" | head -n 1)"
+	if [ "$file" != "" ] ; then . "$file" ; echo $file; return ; fi
+	if [ "$2" = "" ] ; then echo "no url provided" ; return ; fi
 	file="$2"
-	declare rev_name="$(echo \"$file\" | rev)"
-	if [ "${rev_name}:0:1}" != '/' ] ; then file="${file}/" ; fi
+	declare rev_name="$(echo $file | rev)"
+	echo $rev_name
+	if [ "${rev_name:0:1}" != '/' ] ; then file="${file}/" ; fi
+	file="${file}${filename}"
+	echo "This is the file : $file"
+	. <(curl -s $file)
 }
 
 :<<-'FIND_PAGE_SECTION'
@@ -63,4 +68,5 @@ main(){
 	find_page_section $@
 }
 
-main $@
+#main $@
+source_file $@ $curl_url
