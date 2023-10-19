@@ -20,14 +20,23 @@ user_input(){
 	directory
 	SOURCE_FILE
 source_file(){
-	file="$1"
-	if [ "$file" -eq "" ]
+	declare filename="$1"
+	declare file
+	if [ "$filename" -eq "" ]
 	then
-		user_input "Please provide a file :\nExample: colorcodes.sh" file
+		user_input "Please provide a file :\nExample: colorcodes.sh" filename
 	fi
-	find . -type f -name "**/*$file"
+	file="$(find . -type f -name "**$filename" | head -n 1)"
+	if [ "$file" != "" ] ; then . "$file" ; return ; fi
+	if [ "$2" -eq "" ] ; then return ; fi
+	file="$2"
+	declare rev_name="$(echo \"$file\" | rev)"
+	if [ "${rev_name}:0:1}" != '/' ] ; then file="${file}/" ; fi
 }
 
+:<<-'FIND_PAGE_SECTION'
+	Finds a man page in a given man section or picks the first man page available
+	FIND_PAGE_SECTION
 find_page_section(){
 	prompt="please give a man page to find, you can give an optional section with a .\n
 Example: wait.2"
