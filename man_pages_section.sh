@@ -87,13 +87,28 @@ Example: wait.2"
 		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
 	fi
 	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; fi
-	echo $ret_val
+}
+
+:<<-'LIST_SECTIONS'
+	Function that takes a path to a man page as an input and
+	lists all the sections `.SH` tag and subsections `.SS` tag
+	contained within it
+	LIST_SECTIONS
+list_sections(){
+	declare page
+	declare list
+	prompt="Please provide the path to a .gz file containing a manpage"
+	page="$1"
+	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
+	list="$(zcat $page | grep -E '^\.SS|^\.SH')"
+	echo "$list"
 }
 
 main(){
 	local ret_val
 	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $@
+	list_sections $ret_val
 }
 
 main $@
