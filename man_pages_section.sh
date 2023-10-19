@@ -69,9 +69,6 @@ build_range(){
 	declare usage="Usage: build_range section1 section2"
 	declare range
 
-	echo in function : build_range
-	echo first is "$1"
-	echo second is "$2"
 	if [ "$second" = "" ] ; then echo -e "$usage" ; return ; fi
 	range="/"
 	range="${range}$(build_regex "$first")/,"
@@ -200,6 +197,7 @@ pick_section(){
 	CUT_MAN
 cut_man(){
 	declare	commands
+	declare man_section
 	declare page="$1"
 	declare base="$2"
 	declare stop="$3"
@@ -207,9 +205,14 @@ cut_man(){
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
 #	zcat "$page" | sed -n -E 
-	command="0,/$(build_regex ".SH")/ ; "
+	command="0,/$(build_regex ".SH")/p;" 
 	command="${command}$(build_range "$base" "$stop")"
-	zcat "$page" | sed -n -E "$command"
+	echo command is : "'$command'"
+	echo sed -n -E $command
+	man_section="$(zsh -c "zcat \"$page\" | sed -n -E \"$command\"")"
+	#man <(echo "$man_section")
+	export man_section
+	"zsh" -c "man <(echo \"$man_section\")"
 }
 
 main(){
@@ -221,6 +224,8 @@ main(){
 	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $1
 	page="$ret_val"
+	add_slash page "b"
+	echo page is : $page
 	list_sections $ret_val
 	echo $ret_val | tr '=' '\n'
 	pick_section "$ret_val" "$(build_regex "$section")"
