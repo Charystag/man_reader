@@ -45,7 +45,7 @@ build_regex(){
 	input="$1"
 	prompt="please provide a string to match.\nExample: 'Short Format'"
 	if [ "$input" = "" ] ; then user_input "$prompt" input ; fi
-	ret_val=
+	ret_val="[[:space:]]*"
 	i=0
 	while [ "$i" -lt "${#input}" ]
 	do
@@ -55,7 +55,18 @@ build_regex(){
 		esac
 		((++i))
 	done
+	ret_val="${ret_val}""[[:space:]]*"
 	echo $ret_val
+}
+
+:<<-'BUILD_RANGE'
+	Builds a range of addresses for sed
+	Input: two man sections or $ for the second section if last
+	BUILD_RANGE
+build_range(){
+	declare first="$1"
+	declare second="$2"
+
 }
 
 :<<-'SOURCE_FILE'
@@ -129,35 +140,68 @@ list_sections(){
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
 	add_slash page "b"
-	list="$(zcat $page | grep -E '^\.SS|^\.SH')"
+	list="$(zcat $page | grep -E '^\.SS|^\.SH' | tr '\n' $separator)"
 	ret_val="$list"
-	echo $ret_val
 }
 
 :<<-'PICK_SECTION'
-	Function that picks the right section with the provided regexp
+	Function that picks the next section with the provided regexp
+	Example with man page of `git-status` and section "SYNOPSIS"
+	The following section or subsection is "DESCRIPTION"
+	Thus the function returns description
 	PICK_SECTION
 pick_section(){
 	declare input="$1"
 	declare regex="$2"
 	declare usage="Usage: pick_section input regex"
+	declare tmp
+	declare test
+	declare -i i
 	if [ "$2" = "" ] ; then echo "$usage" ; return ; fi
-	echo input is $input
-	echo regex is $regex
-	echo $input | sed -n "/$regex/,+1p" 
-	ret_val=$(echo $input | sed -n "/$regex/,+1p")
+	IFS="$separator" read -ra sections<<<"$input"
+	i=0
+	while [ "$i" -lt "${#sections[@]}" ]
+	do
+		tmp="$(echo "${sections[$i]}" | grep -E "$regex")"
+		if [ "$tmp" != "" ]
+		then
+			if [ "$i" -eq "$((${#sections[@]} - 1))" ]
+			then ret_val="$"
+			else ret_val="${sections[$((i+1))]}"
+			fi
+			break
+		fi
+		((++i))
+	done
+	echo -n end_loop :" "
+	#ret_val=$(echo $input | sed -n "/$regex/,+1p")
 	echo $ret_val
+}
+
+:<<-'CUT_MAN'
+	Function that cuts a man page using the given sections
+	CUT_MAN
+cut_man(){
+	declare page="$1"
+	declare base="$2"
+	declare stop="$3"
+	declare usage="Usage: cut_man man_page base_section stop_section"
+
+	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
+	zcat "$page" | \
+	sed -n -E "/$(build_regex "$base"/,/$(build_regex "$stop")/)
 }
 
 main(){
 	local ret_val
 	local section="${@:2}"
+	local separator="="
 	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $1
 	list_sections $ret_val
 	pick_section "$ret_val" "$(build_regex "$section")"
-	echo $section
-	build_regex "$section"
+	echo section is : $section
+	echo next_section is : $ret_val
 }
 
 main $@
