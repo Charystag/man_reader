@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 curl_url="https://raw.githubusercontent.com/nsainton/Scripts/main/"
+err404="404: Not Found"
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
 # user input
@@ -16,6 +17,16 @@ user_input(){
 }
 
 
+:<<-'ADD_SLASH'
+	Takes a path and adds a slash if not already finished with one
+	ADD_SLASH
+add_slash(){
+	if [ "$1" = "" ] ; then echo "Please provide a path" ; return ; fi
+	declare -n path="$1"
+	declare rev_path="$(echo $path | rev)"
+	if [ "${rev_path:0:1}" != '/' ] ; then path="${path}/" ; return ; fi
+}
+
 :<<-'SOURCE_FILE'
 	Allows to source a given file and tries to get it from online sources if not found in
 	directory
@@ -23,6 +34,10 @@ user_input(){
 source_file(){
 	declare filename="$1"
 	declare file
+	declare script
+	declare tmp
+	declare -i i=1
+	IFS=" " read -ra args <<<"$@"
 	if [ "$filename" = "" ]
 	then
 		user_input "Please provide a file :\nExample: colorcodes.sh" filename
@@ -30,13 +45,23 @@ source_file(){
 	file="$(find . -type f -path "**$filename" | head -n 1)"
 	if [ "$file" != "" ] ; then . "$file" ; echo $file; return ; fi
 	if [ "$2" = "" ] ; then echo "no url provided" ; return ; fi
-	file="$2"
-	declare rev_name="$(echo $file | rev)"
-	echo $rev_name
-	if [ "${rev_name:0:1}" != '/' ] ; then file="${file}/" ; fi
-	file="${file}${filename}"
+	while [ "$i" -lt "${#args[@]}" ]
+	do
+		file="${args[$i]}"
+		echo $file : $i
+		add_slash file
+		file="${file}${filename}"
+		echo "$file"
+		script="$(curl -s $file)"
+		if [ "$?" -gt "0" ] ; then script="404" ; fi
+		tmp="$(echo ${script:0:3} | grep -E '40[[:digit:]]{1}')"
+		if [ "$tmp" != "" ] ; then  ((++i))
+		else break ; fi
+	done
+	if [ "$tmp" != "" ]
+	then echo "Script not found at any of the provided locations" ; return ; fi
 	echo "This is the file : $file"
-	. <(curl -s $file)
+	. <(echo "$script")
 }
 
 :<<-'FIND_PAGE_SECTION'
