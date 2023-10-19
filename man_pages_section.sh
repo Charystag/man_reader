@@ -66,7 +66,20 @@ build_regex(){
 build_range(){
 	declare first="$1"
 	declare second="$2"
+	declare usage="Usage: build_range section1 section2"
+	declare range
 
+	echo in function : build_range
+	echo first is "$1"
+	echo second is "$2"
+	if [ "$second" = "" ] ; then echo -e "$usage" ; return ; fi
+	range="/"
+	range="${range}$(build_regex "$first")/,"
+	if [ "$second" = "$" ]
+	then range="${range}$" ; else range="${range}/$(build_regex "$second")/"
+	fi
+	range="${range}p"
+	echo $range
 }
 
 :<<-'SOURCE_FILE'
@@ -79,6 +92,7 @@ source_file(){
 	declare script
 	declare tmp
 	declare -i i=1
+
 	IFS=" " read -ra args <<<"$@"
 	if [ "$filename" = "" ]
 	then
@@ -113,10 +127,11 @@ find_page_section(){
 	prompt="please give a man page to find, you can give an optional section with a .\n
 Example: wait.2"
 	declare page="$1"
-	if [ "$1" = "" ] ; then user_input "$prompt" page ; fi
-	declare vars
-	IFS='.' read -ra vars <<<"$page"
 	declare section
+	declare vars
+
+	if [ "$1" = "" ] ; then user_input "$prompt" page ; fi
+	IFS='.' read -ra vars <<<"$page"
 	page=${vars[0]}
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
 	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man${section}[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
@@ -137,6 +152,7 @@ list_sections(){
 	declare page
 	declare list
 	declare prompt="Please provide the path to a .gz file containing a manpage"
+
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
 	add_slash page "b"
@@ -157,6 +173,7 @@ pick_section(){
 	declare tmp
 	declare test
 	declare -i i
+
 	if [ "$2" = "" ] ; then echo "$usage" ; return ; fi
 	IFS="$separator" read -ra sections<<<"$input"
 	i=0
@@ -189,7 +206,7 @@ cut_man(){
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
 	zcat "$page" | \
-	sed -n -E "/$(build_regex "$base"/,/$(build_regex "$stop")/)
+	sed -n -E "/$(build_regex "$base"/,/$(build_regex "$stop")/)"
 }
 
 main(){
@@ -199,9 +216,11 @@ main(){
 	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $1
 	list_sections $ret_val
+	echo $ret_val | tr '=' '\n'
 	pick_section "$ret_val" "$(build_regex "$section")"
 	echo section is : $section
 	echo next_section is : $ret_val
+	build_range "$section" "$ret_val"
 }
 
 main $@
