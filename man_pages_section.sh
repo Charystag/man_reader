@@ -189,6 +189,7 @@ pick_section(){
 	if [ "$2" = "" ] ; then echo "$usage" ; return ; fi
 	IFS="$separator" read -ra sections<<<"$input"
 	i=0
+	ret_val="$"
 	while [ "$i" -lt "${#sections[@]}" ]
 	do
 		tmp="$(echo "${sections[$i]}" | grep -E "$regex")"
@@ -215,15 +216,19 @@ pick_section(){
 cut_man(){
 	declare	commands
 	declare man_section
+	declare header_end
 	declare page="$1"
 	declare base="$2"
 	declare stop="$3"
 	declare usage="Usage: cut_man man_page base_section stop_section"
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
-	command="0,/$(build_regex ".SH")/p;" 
+	echo "$page"
+	header_end="/$(build_regex ".SH")/="
+	header_end="$(zcat "$page" | sed -n -E "$header_end" | head -n 1)"
+	command="1,$(($header_end - 1))p;" 
 	command="${command}$(build_range "$base" "$stop")"
-	man_section="$(zsh -c "zcat \"$page\" | sed -n -E \"$command\"")"
+	man_section="$(zcat "$page" | sed -n -E "$command")"
 	man <(echo "$man_section")
 }
 
