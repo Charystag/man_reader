@@ -122,7 +122,7 @@ source_file(){
 		echo "$file"
 		script="$(curl -s $file)"
 		if [ "$?" -gt "0" ] ; then script="404" ; fi
-		tmp="$(echo ${script:0:3} | grep -E '40[[:digit:]]{1}')"
+		tmp="$(echo ${script:0:3} | grep -E '[[:digit:]]{3}')"
 		if [ "$tmp" != "" ] ; then  ((++i))
 		else break ; fi
 	done
@@ -146,13 +146,15 @@ Example: wait.2"
 	IFS='.' read -ra vars <<<"$page"
 	page=${vars[0]}
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
-	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man${section}[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
+	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+share/man${section}[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
 	if [ "$ret_val" = "" ] && [ "$section" != "" ]
+	echo red is : "$RED" | cat -e
 	then 
-		echo -e "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
+		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
 		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
 	fi
 	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; fi
+	echo "ret_val is : $ret_val"
 }
 
 :<<-'LIST_SECTIONS'
@@ -237,22 +239,26 @@ main(){
 	declare	page
 	declare	section="${@:2}"
 	declare	separator="="
+	declare usage="Usage: man_section page section"
 
 	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $1
+	if [ "$section" = "" ] ; then echo -e "$usage" ; return ; fi
 	page="$ret_val"
 	add_slash page "b"
 	echo page is : $page
-	list_sections $ret_val
+	list_sections "$page"
 	echo $ret_val | tr '=' '\n'
 	pick_section "$ret_val" "$(build_regex "$section")"
 	echo section is : $section
 	echo next_section is : $ret_val
 	build_range "$section" "$ret_val"
 	trap "echo RETURN" RETURN
+	declare -t cut_man
 	cut_man "$page" "$section" "$ret_val"
 	trap "-" RETURN
 }
 
 main $@
+#find_page_section "$1"
 #build_regex "$*"
