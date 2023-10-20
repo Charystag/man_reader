@@ -50,7 +50,7 @@ build_regex(){
 	while [ "$i" -lt "${#input}" ]
 	do
 		tmp="${input:$i:1}"
-		case "$tmp" in ( [" ".] ) ret_val="$ret_val\\$tmp" ;;
+		case "$tmp" in ( [" ".'"'] ) ret_val="$ret_val\\$tmp" ;;
 						* ) ret_val="$ret_val$tmp" ;;
 		esac
 		((++i))
@@ -194,25 +194,30 @@ pick_section(){
 
 :<<-'CUT_MAN'
 	Function that cuts a man page using the given sections
+	In this function we have to use a named pipe to ensure
+	the communication between our script and its children
 	CUT_MAN
 cut_man(){
 	declare	commands
 	declare man_section
+	declare args=('-c' 'man')
+	declare fifo_name="$(mktemp -u)"
 	declare page="$1"
 	declare base="$2"
 	declare stop="$3"
 	declare usage="Usage: cut_man man_page base_section stop_section"
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
-#	zcat "$page" | sed -n -E 
 	command="0,/$(build_regex ".SH")/p;" 
 	command="${command}$(build_range "$base" "$stop")"
-	echo command is : "'$command'"
-	echo sed -n -E $command
 	man_section="$(zsh -c "zcat \"$page\" | sed -n -E \"$command\"")"
+	man <(echo "$man_section")
+	echo "man section is : $man_section"
 	#man <(echo "$man_section")
+	#echo "$man_section" > "$section_file"
 	export man_section
-	"zsh" -c "man <(echo \"$man_section\")"
+	$SHELL
+	#"$SHELL" "-c" "man <(echo \"$man_section\")"
 }
 
 main(){
