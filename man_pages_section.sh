@@ -3,8 +3,6 @@
 script_url="https://raw.githubusercontent.com/nsainton/Scripts/main/"
 script_utils_url="https://raw.githubusercontent.com/nsainton/Scripts/main/utils"
 colorcodes="colorcodes.sh"
-colored_man_pages="https://raw.githubusercontent.com/ohmyzsh/\
-ohmyzsh/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh"
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
 # user input
@@ -45,7 +43,7 @@ add_slash(){
 		if [ "${path:0:1}" != '/' ] ; then path="/$path" ; fi
 		return
 	fi
-	rev_path="$(echo $path | rev)"
+	rev_path="$(echo "$path" | rev)"
 	if [ "${rev_path:0:1}" != '/' ] ; then path="${path}/" ; fi
 }
 
@@ -71,7 +69,7 @@ build_regex(){
 		((++i))
 	done
 	ret_val="${ret_val}""[[:space:]]*"
-	echo $ret_val
+	echo "$ret_val"
 }
 
 :<<-'BUILD_RANGE'
@@ -91,7 +89,7 @@ build_range(){
 	then range="${range}$" ; else range="${range}/$(build_regex "$second")/"
 	fi
 	range="${range}p"
-	echo $range
+	echo "$range"
 }
 
 :<<-'SOURCE_FILE'
@@ -104,6 +102,7 @@ source_file(){
 	declare script
 	declare tmp
 	declare -i i=1
+	declare script_utils_url="https://raw.githubusercontent.com/nsainton/Scripts/main/utils"
 
 	IFS=" " read -ra args <<<"$@"
 	if [ "$filename" = "" ]
@@ -113,14 +112,15 @@ source_file(){
 	file="$(find . -type f -path "**$filename" | head -n 1)"
 	if [ "$file" != "" ] ; then . "$file" ; return ; fi
 	if [ "$2" = "" ] ; then echo "no url provided" ; return ; fi
+	args+=( "$script_utils_url" )
 	while [ "$i" -lt "${#args[@]}" ]
 	do
 		file="${args[$i]}"
-		echo $file : $i
+		echo "$file : $i"
 		add_slash file
 		file="${file}${filename}"
 		echo "$file"
-		script="$(curl -s $file)"
+		script="$(curl -s "$file")"
 		if [ "$?" -gt "0" ] ; then script="404" ; fi
 		tmp="$(echo ${script:0:3} | grep -E '[[:digit:]]{3}')"
 		if [ "$tmp" != "" ] ; then  ((++i))
@@ -147,8 +147,8 @@ Example: wait.2"
 	page=${vars[0]}
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
 	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+share/man${section}[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
-	if [ "$ret_val" = "" ] && [ "$section" != "" ]
 	echo red is : "$RED" | cat -e
+	if [ "$ret_val" = "" ] && [ "$section" != "" ]
 	then 
 		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
 		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
@@ -170,7 +170,7 @@ list_sections(){
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
 	add_slash page "b"
-	list="$(zcat $page | grep -E '^\.SS|^\.SH' | tr '\n' $separator)"
+	list="$(zcat "$page" | grep -E '^\.SS|^\.SH' | tr '\n' "$separator")"
 	ret_val="$list"
 }
 
@@ -185,7 +185,6 @@ pick_section(){
 	declare regex="$2"
 	declare usage="Usage: pick_section input regex"
 	declare tmp
-	declare test
 	declare -i i
 
 	if [ "$2" = "" ] ; then echo "$usage" ; return ; fi
@@ -207,7 +206,7 @@ pick_section(){
 	done
 	echo -n end_loop :" "
 	#ret_val=$(echo $input | sed -n "/$regex/,+1p")
-	echo $ret_val
+	echo "$ret_val"
 }
 
 :<<-'CUT_MAN'
@@ -215,6 +214,7 @@ pick_section(){
 	In this function we have to use a named pipe to ensure
 	the communication between our script and its children
 	CUT_MAN
+declare -t cut_man
 cut_man(){
 	declare	commands
 	declare man_section
@@ -228,37 +228,37 @@ cut_man(){
 	echo "$page"
 	header_end="/$(build_regex ".SH")/="
 	header_end="$(zcat "$page" | sed -n -E "$header_end" | head -n 1)"
-	command="1,$(($header_end - 1))p;" 
-	command="${command}$(build_range "$base" "$stop")"
-	man_section="$(zcat "$page" | sed -n -E "$command")"
+	commands="1,$((header_end - 1))p;" 
+	commands="${commands}$(build_range "$base" "$stop")"
+	man_section="$(zcat "$page" | sed -n -E "$commands")"
 	man <(echo "$man_section")
 }
 
 main(){
 	local	ret_val
 	declare	page
-	declare	section="${@:2}"
+	declare -a tmp="(${@:2})"
+	declare	section="${tmp[*]}"
 	declare	separator="="
 	declare usage="Usage: man_section page section"
 
 	source_file  "$colorcodes" "$script_utils_url"
-	find_page_section $1
+	find_page_section "$1"
 	if [ "$section" = "" ] ; then echo -e "$usage" ; return ; fi
 	page="$ret_val"
 	add_slash page "b"
-	echo page is : $page
+	echo page is : "$page"
 	list_sections "$page"
-	echo $ret_val | tr '=' '\n'
+	echo "$ret_val" | tr '=' '\n'
 	pick_section "$ret_val" "$(build_regex "$section")"
-	echo section is : $section
-	echo next_section is : $ret_val
+	echo section is : "$section"
+	echo next_section is : "$ret_val"
 	build_range "$section" "$ret_val"
 	trap "echo RETURN" RETURN
-	declare -t cut_man
 	cut_man "$page" "$section" "$ret_val"
 	trap "-" RETURN
 }
 
-main $@
+main "$@"
 #find_page_section "$1"
 #build_regex "$*"
