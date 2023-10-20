@@ -20,6 +20,19 @@ user_input(){
 }
 
 
+:<<-'COLORED_MAN'
+	Forces `less` to use colors to display man pages
+	COLORED_MAN
+man() {
+LESS_TERMCAP_md=$'\e[01;31m' \
+LESS_TERMCAP_me=$'\e[0m' \
+LESS_TERMCAP_us=$'\e[01;32m' \
+LESS_TERMCAP_ue=$'\e[0m' \
+LESS_TERMCAP_so=$'\e[45;93m' \
+LESS_TERMCAP_se=$'\e[0m' \
+command man "$@"
+}
+
 :<<-'ADD_SLASH'
 	Takes a path and adds a slash at the beginning or the end if needed.
 	ADD_SLASH
@@ -202,7 +215,6 @@ pick_section(){
 cut_man(){
 	declare	commands
 	declare man_section
-	declare args=('-c' 'man')
 	declare page="$1"
 	declare base="$2"
 	declare stop="$3"
@@ -212,22 +224,7 @@ cut_man(){
 	command="0,/$(build_regex ".SH")/p;" 
 	command="${command}$(build_range "$base" "$stop")"
 	man_section="$(zsh -c "zcat \"$page\" | sed -n -E \"$command\"")"
-	#man <(echo "$man_section")
-	#echo "man section is : $man_section"
-	echo "$fifo"
-	fifo="$(mktemp -u)"
-	mkfifo -m "a=rw" "$fifo"
-	echo "$man_section" >"$fifo" &
-	#man <(echo "$man_section")
-	#echo "$man_section" > "$section_file"
-	#export man_section
-	export fifo
-	delete_fifo=1
-	if [ "$(which zsh)" != "zsh" ]
-	then "$(which zsh)" "-c" ". <(curl -s $colored_man_pages) ; man <(cat \"$fifo\")"
-	else "$SHELL" "-c" "man <(cat \"$fifo\")"
-	fi
-	return
+	man <(echo "$man_section")
 }
 
 main(){
@@ -235,8 +232,6 @@ main(){
 	declare	page
 	declare	section="${@:2}"
 	declare	separator="="
-	declare fifo
-	declare	-i delete_fifo
 
 	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $1
@@ -249,8 +244,7 @@ main(){
 	echo section is : $section
 	echo next_section is : $ret_val
 	build_range "$section" "$ret_val"
-	delete_fifo=0
-	trap "echo RETURN ; if [ $delete_fifo -eq 1 ] ; then rm -f $fifo ; echo RETURNNN ; fi" RETURN
+	trap "echo RETURN" RETURN
 	cut_man "$page" "$section" "$ret_val"
 	trap "-" RETURN
 }
