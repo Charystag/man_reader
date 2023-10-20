@@ -3,6 +3,8 @@
 script_url="https://raw.githubusercontent.com/nsainton/Scripts/main/"
 script_utils_url="https://raw.githubusercontent.com/nsainton/Scripts/main/utils"
 colorcodes="colorcodes.sh"
+colored_man_pages="https://raw.githubusercontent.com/ohmyzsh/\
+ohmyzsh/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh"
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
 # user input
@@ -201,7 +203,6 @@ cut_man(){
 	declare	commands
 	declare man_section
 	declare args=('-c' 'man')
-	declare fifo_name="$(mktemp -u)"
 	declare page="$1"
 	declare base="$2"
 	declare stop="$3"
@@ -211,13 +212,22 @@ cut_man(){
 	command="0,/$(build_regex ".SH")/p;" 
 	command="${command}$(build_range "$base" "$stop")"
 	man_section="$(zsh -c "zcat \"$page\" | sed -n -E \"$command\"")"
-	man <(echo "$man_section")
-	echo "man section is : $man_section"
+	#man <(echo "$man_section")
+	#echo "man section is : $man_section"
+	echo "$fifo"
+	fifo="$(mktemp -u)"
+	mkfifo -m "a=rw" "$fifo"
+	echo "$man_section" >"$fifo" &
 	#man <(echo "$man_section")
 	#echo "$man_section" > "$section_file"
-	export man_section
-	$SHELL
-	#"$SHELL" "-c" "man <(echo \"$man_section\")"
+	#export man_section
+	export fifo
+	delete_fifo=1
+	if [ "$(which zsh)" != "zsh" ]
+	then "$(which zsh)" "-c" ". <(curl -s $colored_man_pages) ; man <(cat \"$fifo\")"
+	else "$SHELL" "-c" "man <(cat \"$fifo\")"
+	fi
+	return
 }
 
 main(){
@@ -225,6 +235,8 @@ main(){
 	declare	page
 	declare	section="${@:2}"
 	declare	separator="="
+	declare fifo
+	declare	-i delete_fifo
 
 	source_file  "$colorcodes" "$script_utils_url"
 	find_page_section $1
@@ -237,7 +249,10 @@ main(){
 	echo section is : $section
 	echo next_section is : $ret_val
 	build_range "$section" "$ret_val"
+	delete_fifo=0
+	trap "echo RETURN ; if [ $delete_fifo -eq 1 ] ; then rm -f $fifo ; echo RETURNNN ; fi" RETURN
 	cut_man "$page" "$section" "$ret_val"
+	trap "-" RETURN
 }
 
 main $@
