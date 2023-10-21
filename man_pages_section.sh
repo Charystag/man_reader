@@ -1,11 +1,8 @@
 #!/usr/bin/bash
+# shellcheck disable=SC1090 # sources for file scripts will never be constant
 
-script_url="https://raw.githubusercontent.com/nsainton/Scripts/main/"
-script_utils_url="https://raw.githubusercontent.com/nsainton/Scripts/main/utils"
 colorcodes="colorcodes.sh"
 
-# shellcheck disable=SC2034 # Referenced variable used in function to store
-# user input
 :<<-'USER_INPUT'
 	Allows to prompt something to the user and to read one line of input from
 	the user 
@@ -14,6 +11,9 @@ user_input(){
 	if [ "$2" = "" ] ; then echo "Function usage: user_input prompt var" ; return 1 ; fi
 	declare -n ref="$2"
 	echo -e "$1"
+
+# shellcheck disable=SC2034 # Referenced variable used in function to store
+# user input
 	read -r ref
 }
 
@@ -121,6 +121,8 @@ source_file(){
 		file="${file}${filename}"
 		echo "$file"
 		script="$(curl -s "$file")"
+
+# shellcheck disable=SC2181 #Can't check return code within if condition
 		if [ "$?" -gt "0" ] ; then script="404" ; fi
 		tmp="$(echo ${script:0:3} | grep -E '[[:digit:]]{3}')"
 		if [ "$tmp" != "" ] ; then  ((++i))
@@ -214,7 +216,6 @@ pick_section(){
 	In this function we have to use a named pipe to ensure
 	the communication between our script and its children
 	CUT_MAN
-declare -t cut_man
 cut_man(){
 	declare	commands
 	declare man_section
@@ -237,8 +238,7 @@ cut_man(){
 main(){
 	local	ret_val
 	declare	page
-	declare -a tmp="(${@:2})"
-	declare	section="${tmp[*]}"
+	declare	section="${*:2}"
 	declare	separator="="
 	declare usage="Usage: man_section page section"
 
@@ -254,9 +254,7 @@ main(){
 	echo section is : "$section"
 	echo next_section is : "$ret_val"
 	build_range "$section" "$ret_val"
-	trap "echo RETURN" RETURN
 	cut_man "$page" "$section" "$ret_val"
-	trap "-" RETURN
 }
 
 main "$@"
