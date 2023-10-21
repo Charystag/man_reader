@@ -72,12 +72,12 @@ print_section(){
 	Prints the list of the available man sections in a user friendly format
 	Usage: print_sections man_page [separator]
 	Where man_page is the full path to a man_page
+	The separator is the separator to be used for the function list section
 	PRINT_SECTIONS
 print_sections(){
 	declare separator
 	declare page
 	declare ret_val
-	declare -a sections
 	declare -i i=0
 	declare -i section_number=1
 	declare -i subsection_number=1
@@ -86,6 +86,7 @@ print_sections(){
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
 	if [ "$2" != "" ] ; then separator="$2" ; else separator="=" ; fi
+	if [ "${section[0]}" == "" ] ; then declare -a sections ; fi
 	list_sections "$page" "$separator"
 #	echo "$separator| separator"
 	echo "$ret_val| ret_val"
