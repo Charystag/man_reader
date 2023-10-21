@@ -89,7 +89,7 @@ build_range(){
 	then range="${range}$" ; else range="${range}/$(build_regex "$second")/"
 	fi
 	range="${range}p"
-	echo "$range"
+	ret_val="$range"
 }
 
 :<<-'SOURCE_FILE'
@@ -116,10 +116,8 @@ source_file(){
 	while [ "$i" -lt "${#args[@]}" ]
 	do
 		file="${args[$i]}"
-		echo "$file : $i"
 		add_slash file
 		file="${file}${filename}"
-		echo "$file"
 		script="$(curl -s "$file")"
 
 # shellcheck disable=SC2181 #Can't check return code within if condition
@@ -130,7 +128,6 @@ source_file(){
 	done
 	if [ "$tmp" != "" ]
 	then echo "Script not found at any of the provided locations" ; return ; fi
-	echo "This is the file : $file"
 	. <(echo "$script")
 }
 
@@ -149,14 +146,12 @@ Example: wait.2"
 	page=${vars[0]}
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
 	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+share/man${section}[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
-	echo red is : "$RED" | cat -e
 	if [ "$ret_val" = "" ] && [ "$section" != "" ]
 	then 
 		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
 		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
 	fi
 	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; fi
-	echo "ret_val is : $ret_val"
 }
 
 :<<-'LIST_SECTIONS'
@@ -206,9 +201,7 @@ pick_section(){
 		fi
 		((++i))
 	done
-	echo -n end_loop :" "
 	#ret_val=$(echo $input | sed -n "/$regex/,+1p")
-	echo "$ret_val"
 }
 
 :<<-'CUT_MAN'
@@ -226,11 +219,11 @@ cut_man(){
 	declare usage="Usage: cut_man man_page base_section stop_section"
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
-	echo "$page"
 	header_end="/$(build_regex ".SH")/="
 	header_end="$(zcat "$page" | sed -n -E "$header_end" | head -n 1)"
 	commands="1,$((header_end - 1))p;" 
-	commands="${commands}$(build_range "$base" "$stop")"
+	build_range "$base" "$stop"
+	commands="${commands}$ret_val"
 	man_section="$(zcat "$page" | sed -n -E "$commands")"
 	man <(echo "$man_section")
 }
@@ -247,13 +240,8 @@ main(){
 	if [ "$section" = "" ] ; then echo -e "$usage" ; return ; fi
 	page="$ret_val"
 	add_slash page "b"
-	echo page is : "$page"
 	list_sections "$page"
-	echo "$ret_val" | tr '=' '\n'
 	pick_section "$ret_val" "$(build_regex "$section")"
-	echo section is : "$section"
-	echo next_section is : "$ret_val"
-	build_range "$section" "$ret_val"
 	cut_man "$page" "$section" "$ret_val"
 }
 
