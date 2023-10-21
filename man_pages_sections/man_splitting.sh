@@ -52,8 +52,9 @@ list_sections(){
 	PRINT_SECTION
 print_section(){
 	declare usage="Usage: print_section section"
-	declare section="$(echo "$1" | grep -E -o '[ ]+.*$' )"
+	declare section
 
+	section="$(echo "$1" | grep -E -o '[ ]+.*$' )"
 	if [ "$section_number" = "" ] ; then declare -gi section_number=1 ; fi
 	if [ "$subsection_number" = "" ] ; then declare -gi subsection_number=1 ; fi
 	if [ "$1" = "" ] ; then echo "$usage" ; return 1 ; fi
