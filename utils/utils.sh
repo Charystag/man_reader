@@ -68,3 +68,69 @@ source_file(){
 	. <(echo "$script")
 }
 
+
+#---------------------------------------------------------------------
+#--------------------------PATH BUILDING------------------------------
+#---------------------------------------------------------------------
+
+:<<-'ADD_SLASH'
+	Takes a path and adds a slash at the beginning or the end if needed.
+	ADD_SLASH
+add_slash(){
+	declare rev_path
+	if [ "$1" = "" ] ; then echo "Please provide a path" ; return ; fi
+	declare -n path="$1"
+	if [ "$2" = "b" ]
+	then
+		if [ "${path:0:1}" != '/' ] ; then path="/$path" ; fi
+		return
+	fi
+	rev_path="$(echo "$path" | rev)"
+	if [ "${rev_path:0:1}" != '/' ] ; then path="${path}/" ; fi
+}
+
+:<<-'BUILD_REGEX'
+	Builds a regex that matches the input string
+	BUILD_REGEX
+build_regex(){
+	declare input
+	declare prompt
+	declare tmp
+	declare -i i
+	input="$1"
+	prompt="please provide a string to match.\nExample: 'Short Format'"
+	if [ "$input" = "" ] ; then user_input "$prompt" input ; fi
+	ret_val="[[:space:]]*"
+	i=0
+	while [ "$i" -lt "${#input}" ]
+	do
+		tmp="${input:$i:1}"
+		case "$tmp" in ( [" ".'"'] ) ret_val="$ret_val\\$tmp" ;;
+						* ) ret_val="$ret_val$tmp" ;;
+		esac
+		((++i))
+	done
+	ret_val="${ret_val}""[[:space:]]*"
+	echo "$ret_val"
+}
+
+:<<-'BUILD_RANGE'
+	Builds a range of addresses for sed
+	Input: two man sections or $ for the second section if last
+	BUILD_RANGE
+build_range(){
+	declare first="$1"
+	declare second="$2"
+	declare usage="Usage: build_range section1 section2"
+	declare range
+
+	if [ "$second" = "" ] ; then echo -e "$usage" ; return ; fi
+	range="/"
+	range="${range}$(build_regex "$first")/,"
+	if [ "$second" = "$" ]
+	then range="${range}$" ; else range="${range}/$(build_regex "$second")/"
+	fi
+	range="${range}p"
+	ret_val="$range"
+}
+
