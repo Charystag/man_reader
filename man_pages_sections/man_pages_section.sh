@@ -31,6 +31,9 @@ main(){
 	man_section "$@"
 }
 
-main "$@"
+#main "$@"
+declare ret_val
+find_page_section "$1"
+print_sections "$ret_val"
 #find_page_section "$1"
 #build_regex "$*"
