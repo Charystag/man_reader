@@ -27,6 +27,7 @@ Example: wait.2"
 	Function that takes a path to a man page as an input and
 	lists all the sections `.SH` tag and subsections `.SS` tag
 	contained within it
+	Usage: list_sections man_page [separator]
 	LIST_SECTIONS
 list_sections(){
 	declare page
@@ -42,11 +43,70 @@ list_sections(){
 	ret_val="$list"
 }
 
+:<<-'PRINT_SECTION'
+	Print a given man section in a user friendly format
+	Usage: print_section section
+	section should be a man page section formatted as a traditionnal man_page
+	The variables section_number and subsection_number are to be defined in
+	the calling function (or they will be declared as global anyways)
+	PRINT_SECTION
+print_section(){
+	declare usage="Usage: print_section section"
+	declare section="$(echo "$1" | grep -E -o '[ ]+.*$' )"
+
+	if [ "$section_number" = "" ] ; then declare -gi section_number=1 ; fi
+	if [ "$subsection_number" = "" ] ; then declare -gi subsection_number=1 ; fi
+	if [ "$1" = "" ] ; then echo "$usage" ; return 1 ; fi
+	if [ "${1:0:3}" = ".SH" ]
+	then 
+		printf "%-5b%-20b%b\n" "($((i+1)))" "Section $section_number " "-$section"
+		(( ++section_number )) ; (( subsection_number=1 ))
+	else
+		printf "%-5b%-20b%b\n" "($((i+1)))" "    Subsection $subsection_number " "-$section"
+		(( ++subsection_number ))
+	fi
+}
+
+:<<-'PRINT_SECTIONS'
+	Prints the list of the available man sections in a user friendly format
+	Usage: print_sections man_page [separator]
+	Where man_page is the full path to a man_page
+	PRINT_SECTIONS
+print_sections(){
+	declare separator
+	declare page
+	declare ret_val
+	declare -a sections
+	declare -i i=0
+	declare -i section_number=1
+	declare -i subsection_number=1
+	declare prompt="Please provide the path to a .gz file containing a manpage"
+
+	page="$1"
+	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
+	if [ "$2" != "" ] ; then separator="$2" ; else separator="=" ; fi
+	list_sections "$page" "$separator"
+#	echo "$separator| separator"
+	echo "$ret_val| ret_val"
+	IFS="$separator" read -ra sections <<<"$ret_val"
+	echo "${#sections[@]}|sections len"
+	while [ "$i" -lt "${#sections[@]}" ]
+	do
+#		echo "${sections[$i]} | sections"
+		print_section "${sections[$i]}"
+		(( ++i ))
+	done
+}
+
 :<<-'PICK_SECTION'
 	Function that picks the next section with the provided regexp
 	Example with man page of `git-status` and section "SYNOPSIS"
 	The following section or subsection is "DESCRIPTION"
 	Thus the function returns description
+	Usage: pick_section input regex
+	Where input is the list returned by the function list sections
+	and regex is the regex built with build_regex that represents
+	the name of our section
 	PICK_SECTION
 pick_section(){
 	declare input="$1"
