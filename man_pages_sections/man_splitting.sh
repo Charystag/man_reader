@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+export MAN_SPLITTING=1
+
 :<<-'FIND_PAGE_SECTION'
 	Finds a man page in a given man section or picks the first man page available
 	FIND_PAGE_SECTION

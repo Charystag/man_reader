@@ -2,6 +2,8 @@
 # shellcheck disable=SC1090 # sources for file scripts will never be constant
 # shellcheck disable=SC1091 # Don't need to follow sources
 
+export MAN_PAGES_SECTION=1
+
 colorcodes="colorcodes.sh"
 utils="utils/utils.sh"
 remote_utils="https://raw.githubusercontent.com/nsainton/Scripts/file_splitting/""$utils"
