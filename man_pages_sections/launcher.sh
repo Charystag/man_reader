@@ -1,8 +1,10 @@
 #!/usr/bin/bash
+# shellcheck disable=SC1091
 . man_splitting.sh
 . ../utils/utils.sh
 . ../utils/colorcodes.sh
 
+export LAUNCHER=1
 trap "echo Exiting..." EXIT
 shopt -s extglob # enable extglob shell option for
 # extended pattern matching
@@ -40,16 +42,17 @@ Example: '23' or 'q'\
 		user_input "$prompt" section
 		case "$section" in ( [n] ) (( ++i )) ;;
 					[p] ) (( --i )) ;;
-					+([[:digit:]]) ) (( i="$(($section))" )) ;;
+					+([[:digit:]]) ) (( i="$((section))" )) ;;
 					[q] ) break ;;
 					[k] ) command clear ; continue ;;
 					[s] ) print_sections "$page" ; continue ;;
 					* ) echo "Unrecognized option, try again"
 						continue ;;
 		esac
-		if [ "$i" -lt 1 -o "$i" -gt "${#sections[@]}" ]
+		if [ "$i" -lt 1 ] || [ "$i" -gt "${#sections[@]}" ]
 		then break ; fi
-		echo "$i"
+		echo -e "You entered : ${GRN}$section${CRESET}"
+		echo -e "You are now on section : ${GRN}$i${CRESET}"
 		if [ "$i" -lt "${#sections[@]}" ]
 		then cut_man "$page" "${sections[$((i-1))]}" "${sections[$i]}"
 		else cut_man "$page" "${sections[$((i-1))]}" "$"
