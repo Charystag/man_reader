@@ -151,6 +151,7 @@ cut_man(){
 	declare usage="Usage: cut_man man_page base_section stop_section"
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
+	add_slash page "b"
 	header_end="/$(build_regex ".SH")/="
 	header_end="$(zcat "$page" | sed -n -E "$header_end" | head -n 1)"
 	commands="1,$((header_end - 1))p;" 
