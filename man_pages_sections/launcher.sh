@@ -92,5 +92,3 @@ Example: man or man.7
 	else echo "Unrecognized option"
 	fi
 }
-
-main_menu
