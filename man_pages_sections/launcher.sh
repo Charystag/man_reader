@@ -1,10 +1,61 @@
 #!/usr/bin/bash
+. man_splitting.sh
+. ../utils/utils.sh
+. ../utils/colorcodes.sh
 
 trap "echo Exiting..." EXIT
+shopt -s extglob # enable extglob shell option for
+# extended pattern matching
 
+:<<-'READ_PAGE'
+	Takes a page as an input and split it into sections
+	Allows the user to go through the sections and go to
+	next section or previous section
+	READ_PAGE
+read_page(){
+	declare page
+	declare -a sections
+	declare -l section
+	declare prompt
+	declare -i i=0
+	declare -I separator
+
+	prompt="Please enter a section number.\n\
+Press n for next, p for previous or q to quit\n\
+Example: '23' or 'q'\
+"
+	find_page_section "$1"
+	if [ "$ret_val" = "" ] ; then return ; fi
+	if [ "$separator" = "" ] ; then separator="=" ; fi
+	page="$ret_val"
+	print_sections "$page"
+	list_sections "$page"
+	IFS="$separator" read -ra sections <<<"$ret_val"
+	while true
+	do
+		echo bonjour
+		user_input "$prompt" section
+		case "$section" in ( [n] ) (( ++i )) ;;
+					[p] ) (( --i )) ;;
+					+([[:digit:]]) ) (( i="$(($section))" )) ;;
+					[q{1}] ) break ;;
+					* ) echo "Unrecognized option, try again"
+						continue ;;
+		esac
+		if [ "$i" -lt 1 -o "$i" -gt "${#sections[@]}" ]
+		then break ; fi
+		echo "$i"
+	done
+#	echo "$separator|separator"
+#	echo "${#sections[@]}|sections_len"
+#	echo "${sections[1]}"
+}
+
+:<<-'MAIN_MENU'
+	Main function that will be used to run the script
+	MAIN_MENU
 main_menu(){
 	local ret_val
-	declare -a sections
 	declare prompt
 	declare continue_prompt
 	declare -l continue_value
@@ -22,10 +73,12 @@ Example: man or man.7
 		read_page "$page"
 		echo -e "$continue_prompt"
 		read -r continue_value
-		if [ "$continue_value" != 'y' ] then break ; fi
+		if [ "$continue_value" != 'y' ] ; then break ; fi
 	done
 	if [ "$continue_value" = "n" ]
 	then echo "Thanks for using"
 	else echo "Unrecognized option"
 	fi
 }
+
+main_menu
