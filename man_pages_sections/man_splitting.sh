@@ -4,12 +4,13 @@
 	Finds a man page in a given man section or picks the first man page available
 	FIND_PAGE_SECTION
 find_page_section(){
-	prompt="please give a man page to find, you can give an optional section with a .\n
-Example: wait.2"
+	declare prompt
 	declare page="$1"
 	declare section
 	declare vars
 
+	prompt="please give a man page to find, you can give an optional section with a .\n
+Example: wait.2"
 	if [ "$1" = "" ] ; then user_input "$prompt" page ; fi
 	IFS='.' read -ra vars <<<"$page"
 	page=${vars[0]}
