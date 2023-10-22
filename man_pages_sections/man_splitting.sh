@@ -14,11 +14,11 @@ Example: wait.2"
 	IFS='.' read -ra vars <<<"$page"
 	page=${vars[0]}
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
-	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+share/man${section}[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
+	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+man/man${section}[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
 	if [ "$ret_val" = "" ] && [ "$section" != "" ]
 	then 
 		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
-		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]*man[^ ]*\>" | tr '\n' ' ' | awk '{ print $1 }')
+		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+man/man[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
 	fi
 	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; fi
 }
@@ -76,6 +76,7 @@ print_section(){
 	PRINT_SECTIONS
 print_sections(){
 	declare separator
+	declare -a sections
 	declare page
 	declare ret_val
 	declare -i i=0
@@ -86,15 +87,10 @@ print_sections(){
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
 	if [ "$2" != "" ] ; then separator="$2" ; else separator="=" ; fi
-	if [ "${section[0]}" == "" ] ; then declare -a sections ; fi
 	list_sections "$page" "$separator"
-#	echo "$separator| separator"
-	echo "$ret_val| ret_val"
 	IFS="$separator" read -ra sections <<<"$ret_val"
-	echo "${#sections[@]}|sections len"
 	while [ "$i" -lt "${#sections[@]}" ]
 	do
-#		echo "${sections[$i]} | sections"
 		print_section "${sections[$i]}"
 		(( ++i ))
 	done
