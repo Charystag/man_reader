@@ -27,17 +27,17 @@ Example: wait.2"
 	Function that takes a path to a man page as an input and
 	lists all the sections `.SH` tag and subsections `.SS` tag
 	contained within it
-	Usage: list_sections man_page [separator]
+	Usage: list_sections man_page
 	LIST_SECTIONS
 list_sections(){
 	declare page
 	declare list
-	declare separator
+	declare -I separator
 	declare prompt="Please provide the path to a .gz file containing a manpage"
 
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
-	if [ "$2" != "" ] ; then separator="$2" ; else separator="=" ; fi
+	if [ "$separator" = "" ] ; then separator="=" ; fi
 	add_slash page "b"
 	list="$(zcat "$page" | grep -E '^\.SS|^\.SH' | tr '\n' "$separator")"
 	ret_val="$list"
@@ -75,7 +75,7 @@ print_section(){
 	The separator is the separator to be used for the function list section
 	PRINT_SECTIONS
 print_sections(){
-	declare separator
+	declare -I separator
 	declare -a sections
 	declare page
 	declare ret_val
@@ -86,7 +86,7 @@ print_sections(){
 
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
-	if [ "$2" != "" ] ; then separator="$2" ; else separator="=" ; fi
+	if [ "$separator" = "" ] ; then separator="=" ; fi
 	list_sections "$page" "$separator"
 	IFS="$separator" read -ra sections <<<"$ret_val"
 	while [ "$i" -lt "${#sections[@]}" ]
@@ -109,13 +109,13 @@ print_sections(){
 pick_section(){
 	declare input="$1"
 	declare regex="$2"
-	declare separator
+	declare -I separator
 	declare usage="Usage: pick_section input regex"
 	declare tmp
 	declare -i i
 
 	if [ "$2" = "" ] ; then echo "$usage" ; return ; fi
-	if [ "$3" != "" ] ; then separator="$2" ; else separator="=" ; fi
+	if [ "$separator" = "" ] ; then separator="=" ; fi
 	IFS="$separator" read -ra sections<<<"$input"
 	i=0
 	ret_val="$"
