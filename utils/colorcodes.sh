@@ -1,4 +1,7 @@
 #!/bin/sh
+
+export COLORCODES=1
+
 #Regular text
 export BLK="\e[0;30m"
 export RED="\e[0;31m"

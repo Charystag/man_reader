@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 # shellcheck disable=SC1090 # sources for file scripts will never be constant
 
+export UTILS=1
+
 :<<-'USER_INPUT'
 	Allows to prompt something to the user and to read one line of input from
 	the user 
