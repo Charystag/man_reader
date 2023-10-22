@@ -21,7 +21,10 @@ read_page(){
 	declare -I separator
 
 	prompt="Please enter a section number.\n\
-Press n for next, p for previous or q to quit\n\
+Press '${GRN}n${CRESET}' for next, '${GRN}p${CRESET}' for previous \
+or '${GRN}q${CRESET}' to quit\n\
+Press '${GRN}k${CRESET}' to clear terminal or \
+Press '${GRN}s${CRESET}' to print sections \n\
 Example: '23' or 'q'\
 "
 	find_page_section "$1"
@@ -33,18 +36,24 @@ Example: '23' or 'q'\
 	IFS="$separator" read -ra sections <<<"$ret_val"
 	while true
 	do
-		echo bonjour
+		#echo bonjour
 		user_input "$prompt" section
 		case "$section" in ( [n] ) (( ++i )) ;;
 					[p] ) (( --i )) ;;
 					+([[:digit:]]) ) (( i="$(($section))" )) ;;
-					[q{1}] ) break ;;
+					[q] ) break ;;
+					[k] ) command clear ; continue ;;
+					[s] ) print_sections "$page" ; continue ;;
 					* ) echo "Unrecognized option, try again"
 						continue ;;
 		esac
 		if [ "$i" -lt 1 -o "$i" -gt "${#sections[@]}" ]
 		then break ; fi
 		echo "$i"
+		if [ "$i" -lt "${#sections[@]}" ]
+		then cut_man "$page" "${sections[$((i-1))]}" "${sections[$i]}"
+		else cut_man "$page" "${sections[$((i-1))]}" "$"
+		fi
 	done
 #	echo "$separator|separator"
 #	echo "${#sections[@]}|sections_len"
