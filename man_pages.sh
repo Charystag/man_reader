@@ -11,8 +11,6 @@ declare utils_dir="utils"
 declare -a utils=( "${script_dir}/launcher.sh" "${script_dir}/man_pages_section.sh" \
 "${script_dir}/man_splitting.sh" "${utils_dir}/colorcodes.sh" "${utils_dir}/utils.sh" )
 
-echo "${utils[*]}"
-
 :<<-'SOURCE_UTILS'
 	Source files needed to run the script
 	SOURCE_UTILS
@@ -32,7 +30,9 @@ source_utils(){
 		then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/$file \e[0m" ; exit 1 ; fi
 		(( ++i ))
 	done
-	echo 'All dependencies have been installed'
+	if [ "$1" != "" ] && ! curl -fsSL "$remote_path/man_pages.sh" >> "$install_path" ;
+	then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/man_pages.sh \e[0m" ; exit 1 ; fi
+	echo -e "\e[0;32mAll dependencies have been installed\e[0m"
 }
 
 :<<-'PARSE_OPTION'
@@ -74,7 +74,8 @@ to specify a man section to search in"
 	printf "%-12b%b\n" "\t-i [PATH]" "Installs this script in the provided PATH or \
 $install_path if no path is provided\n\
 (This option currently takes no optionnal PATH and only installs the script in $install_path)"
-	printf "%-12b%b\n" "\t-o" "When running, output the full script in $(dirname "$0")/$(basename -s "$suffix" "$0")_full.sh"
+#	printf "%-12b%b\n" "\t-o" "When running, output the full script in $(dirname "$0")/$(basename -s "$suffix" "$0")_full.sh"
+	exit 0
 }
 
 main(){
@@ -85,11 +86,17 @@ main(){
 	declare optstring="iolh"
 	local ret_val
 
-	echo "$*|args"
 	parse_option "$@"
 	shift "$((OPTIND - 1))"
 	OPTIND=1
+	if [ "$option_help" -eq "1" ] ; then help ; fi
+	if [ "$option_install" != "" ] ; then source_utils 1 ; fi
+	source_utils
+	if [ "$option_list" -eq "1" ] ; then print_sections "$1" ; return 0 ; fi
+	if [ "${#@}" -ne "2" ] && [ "${#@}" -ne "0" ]
+	then echo -e "${RED}Error${CRESET} : Invalid number of arguments provided" ; help ; fi
+	if [ "${#@}" -eq "2" ] ; then man_section "$@" ; return 0 ; fi
+	main_menu
 }
 
-#main "$@"
-source_utils
+main "$@"
