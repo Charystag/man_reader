@@ -1,8 +1,39 @@
 #!/usr/bin/bash
 
 export MAN_PAGES=1
+trap "echo Exiting..." EXIT
 
 declare install_path="$HOME/.local/bin/man_pages.sh"
+declare remote_path="https://raw.githubusercontent.com/nsainton/Scripts/main"
+declare remote_utils="https://raw.githubusercontent.com/nsainton/Scripts/main/utils/"
+declare script_dir="man_pages_sections"
+declare utils_dir="utils"
+declare -a utils=( "${script_dir}/launcher.sh" "${script_dir}/man_pages_section.sh" \
+"${script_dir}/man_splitting.sh" "${utils_dir}/colorcodes.sh" "${utils_dir}/utils.sh" )
+
+echo "${utils[*]}"
+
+:<<-'SOURCE_UTILS'
+	Source files needed to run the script
+	SOURCE_UTILS
+source_utils(){	
+	declare -i i=0
+	declare file
+	declare command
+
+	if [ "$MAN_SPLITTING" = "1" ] ; then return 0  ; fi
+	while [ "$i" -lt "${#utils[@]}" ]
+	do
+		file="${utils[$i]}"
+		if [ "$1" != "" ] ; then command="curl -fsSL $remote_path/$file >> $install_path"
+		else command=". <(curl -fsSL $remote_path/$file)" ; fi
+		if [ -f "$file" ] && [ "$1" = "" ] ; then . "$file"
+		elif ! eval "$command"
+		then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/$file \e[0m" ; exit 1 ; fi
+		(( ++i ))
+	done
+	echo 'All dependencies have been installed'
+}
 
 :<<-'PARSE_OPTION'
 	Parse a provided option and sets the right variables
@@ -41,7 +72,8 @@ to specify a man section to search in"
 	printf "%-12b%b\n" "\t-h" "Display this help and exits"
 	printf "%-12b%b\n" "\t-l page" "Lists the sections of the given man page"
 	printf "%-12b%b\n" "\t-i [PATH]" "Installs this script in the provided PATH or \
-$install_path if no path is provided"
+$install_path if no path is provided\n\
+(This option currently takes no optionnal PATH and only installs the script in $install_path)"
 	printf "%-12b%b\n" "\t-o" "When running, output the full script in $(dirname "$0")/$(basename -s "$suffix" "$0")_full.sh"
 }
 
@@ -51,11 +83,13 @@ main(){
 	declare -i option_output
 	declare -i option_list=0
 	declare optstring="iolh"
+	local ret_val
 
-	echo "$@|args"
+	echo "$*|args"
 	parse_option "$@"
 	shift "$((OPTIND - 1))"
 	OPTIND=1
 }
 
-main "$@"
+#main "$@"
+source_utils
