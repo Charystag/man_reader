@@ -6,7 +6,7 @@ trap "echo Exiting..." EXIT
 declare install_path="$HOME/.local/bin/man_pages.sh"
 declare remote_path="https://raw.githubusercontent.com/nsainton/Scripts/main"
 declare remote_utils="https://raw.githubusercontent.com/nsainton/Scripts/main/utils/"
-declare script_dir="man_pages_sections"
+declare script_dir="man_reader_utils"
 declare utils_dir="utils"
 declare -a utils=( "${script_dir}/launcher.sh" "${script_dir}/man_pages_section.sh" \
 "${script_dir}/man_splitting.sh" "${utils_dir}/colorcodes.sh" "${utils_dir}/utils.sh" )
@@ -30,7 +30,7 @@ source_utils(){
 		then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/$file \e[0m" ; exit 1 ; fi
 		(( ++i ))
 	done
-	if [ "$1" != "" ] && ! curl -fsSL "$remote_path/man_pages.sh" >> "$install_path" ;
+	if [ "$1" != "" ] && ! curl -fsSL "$remote_path/man_reader.sh" >> "$install_path" ;
 	then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/man_pages.sh \e[0m" ; exit 1 ; fi
 	echo -e "\e[0;32mAll dependencies are met\e[0m"
 }
