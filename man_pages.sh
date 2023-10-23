@@ -95,6 +95,22 @@ $install_path if no path is provided\n\
 	exit 0
 }
 
+:<<-'TOC'
+	Prints the table of contents of a given man page
+	Usage: toc page
+	Where page is the name (optionnaly followed with a '.' for the section) of a man page
+	TOC
+toc(){
+	declare page
+
+	find_page_section "$1"
+	if [ "$ret_val" = "" ] ; then return 1 ; fi
+	page="$ret_val"
+	add_slash page "b"
+	print_sections "$page"
+	return 0
+}
+
 main(){
 	declare -i option_help=0
 	declare option_install
@@ -110,7 +126,7 @@ main(){
 	if [ "$option_install" != "" ]
 	then install_script ; fi
 	source_utils
-	if [ "$option_list" -eq "1" ] ; then print_sections "$1" ; return 0 ; fi
+	if [ "$option_list" -eq "1" ] ; then toc "$1" ; return "$?" ; fi
 	if [ "${#@}" -ne "2" ] && [ "${#@}" -ne "0" ]
 	then echo -e "${RED}Error${CRESET} : Invalid number of arguments provided" ; help ; fi
 	if [ "${#@}" -eq "2" ] ; then man_section "$@" ; return 0 ; fi
