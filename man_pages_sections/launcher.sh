@@ -1,11 +1,7 @@
 #!/usr/bin/bash
 # shellcheck disable=SC1091
-. man_splitting.sh
-. ../utils/utils.sh
-. ../utils/colorcodes.sh
 
 export LAUNCHER=1
-trap "echo Exiting..." EXIT
 shopt -s extglob # enable extglob shell option for
 # extended pattern matching
 
@@ -38,7 +34,6 @@ Example: '23' or 'q'\
 	IFS="$separator" read -ra sections <<<"$ret_val"
 	while true
 	do
-		#echo bonjour
 		user_input "$prompt" section
 		case "$section" in ( [n] ) (( ++i )) ;;
 					[p] ) (( --i )) ;;
@@ -58,9 +53,6 @@ Example: '23' or 'q'\
 		else cut_man "$page" "${sections[$((i-1))]}" "$"
 		fi
 	done
-#	echo "$separator|separator"
-#	echo "${#sections[@]}|sections_len"
-#	echo "${sections[1]}"
 }
 
 :<<-'MAIN_MENU'
