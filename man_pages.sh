@@ -32,7 +32,24 @@ source_utils(){
 	done
 	if [ "$1" != "" ] && ! curl -fsSL "$remote_path/man_pages.sh" >> "$install_path" ;
 	then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/man_pages.sh \e[0m" ; exit 1 ; fi
-	echo -e "\e[0;32mAll dependencies have been installed\e[0m"
+	echo -e "\e[0;32mAll dependencies are met\e[0m"
+}
+
+:<<-'INSTALL_SCRIPT'
+	Installs the script in the required location
+	INSTALL_SCRIPT
+install_script(){
+	declare installed_prompt
+
+	installed_prompt="Script installed at : $install_path"
+	if [ -f "$install_path" ]
+	then echo -e "Script already exists at : $install_path" ; exit 0 ; fi
+	if ! mkdir -p "$(dirname "$install_path")"
+	then echo "Couldn't create directory : $(dirname "$install_path")" ; exit 1
+	else touch "$install_path" && chmod "+x" "$install_path" && \
+	source_utils 1 && echo -e "$installed_prompt" && exit 0 ; fi
+	echo -e "Couldn't install script"
+	exit 1
 }
 
 :<<-'PARSE_OPTION'
@@ -90,7 +107,8 @@ main(){
 	shift "$((OPTIND - 1))"
 	OPTIND=1
 	if [ "$option_help" -eq "1" ] ; then help ; fi
-	if [ "$option_install" != "" ] ; then source_utils 1 ; fi
+	if [ "$option_install" != "" ]
+	then install_script ; fi
 	source_utils
 	if [ "$option_list" -eq "1" ] ; then print_sections "$1" ; return 0 ; fi
 	if [ "${#@}" -ne "2" ] && [ "${#@}" -ne "0" ]
