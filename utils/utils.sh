@@ -50,7 +50,6 @@ source_file(){
 	fi
 	file="$(find . -type f -path "**$filename" | head -n 1)"
 	if [ "$file" != "" ] ; then . "$file" ; return ; fi
-	if [ "$2" = "" ] ; then echo "no url provided" ; return ; fi
 	args+=( "$script_utils_url" )
 	while [ "$i" -lt "${#args[@]}" ]
 	do
