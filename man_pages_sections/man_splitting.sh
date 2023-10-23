@@ -23,6 +23,7 @@ Example: wait.2"
 		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
 		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+man/man[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
 		section="$(echo "$ret_val" | grep -E -o "[[:digit:]]+")"
+		section="${section:0:1}"
 		printf "%b\n" "${GRN}First match${CRESET} is : section ${GRN}$section${CRESET}"
 	fi
 	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; fi
