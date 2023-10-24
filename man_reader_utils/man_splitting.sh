@@ -5,14 +5,13 @@ export MAN_SPLITTING=1
 :<<-'RETRIEVE_PAGE'
 	If multiple pages are found when looking for a man page in a given section
 	Ensure to take the non posix one
+	Usage: retrieve_page pages
 	RETRIEVE_PAGE
 retrieve_page(){
 	declare -i i=0
 	declare -a pages
-	declare usage
 
-	usage="Usage: retrieve_page pages"
-	if [ "$1" = "" ] ; then  echo "$usage" ; return 1 ; fi
+	if [ "$1" = "" ] ; then return 1 ; fi
 	IFS=' ' read -ra pages<<<"$1"
 	if [ "${#pages[@]}" -lt "2" ] ; then ret_val="${pages[0]}" ; return 0 ; fi
 	while [ "$i" -lt "${#pages[@]}" ]
