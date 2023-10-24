@@ -51,8 +51,15 @@ To run the script, you can run the following command in your terminal
 bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh)
 ```
 
-> You can run `bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) bash 30`
-> For more information about **Process Substitution**
+<blockquote>
+
+:bulb: You can run 
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) bash 30
+```
+For more information about **Process Substitution**
+
+</blockquote>
 
 It will then prompt the main menu and the script will be able to be used as explained above.
 
