@@ -127,8 +127,9 @@ main(){
 	then install_script ; fi
 	source_utils
 	if [ "$option_list" -eq "1" ] ; then toc "$1" ; return "$?" ; fi
-	if [ "${#@}" -ne "2" ] && [ "${#@}" -ne "0" ]
+	if [ "${#@}" -gt "2" ]
 	then echo -e "${RED}Error${CRESET} : Invalid number of arguments provided" ; help ; fi
+	if [ "${#@}" -eq "1" ] ; then read_page "$@" ; return 0 ; fi
 	if [ "${#@}" -eq "2" ] ; then man_section "$@" ; return 0 ; fi
 	main_menu
 }
