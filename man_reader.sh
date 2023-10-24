@@ -67,7 +67,7 @@ parse_option(){
 							[l] )
 			option_list=1 ;;
 							[h] )
-			help ; exit 0 ;;
+			help ;;
 		esac
 	done
 }
