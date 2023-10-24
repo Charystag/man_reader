@@ -1,13 +1,13 @@
 # Man Reader - Un visualisateur en ligne de commande pour les pages de man
 
-> :warning: Ce script necessite une version de bash >= pour s'executer.
-> Vous pouvez verifier votre version avec `bash --version`
+> :warning: Ce script nécessite une version de bash >= pour s'éxecuter.
+> Vous pouvez vérifier votre version avec `bash --version`
 
 ## Qu'est-ce que ce script fait ?
 
 ### Introduction
 
-Ce script permet a son utilisateur de naviger a travers les pages de man
+Ce script permet à son utilisateur de naviger à travers les pages de man
 d'une maniere plus agreable. Il parse le man pour recuperer les sections
 et les subsections puis affiche la table des matiere qui ressemble a la
 suivante.
