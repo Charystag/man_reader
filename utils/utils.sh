@@ -73,7 +73,7 @@ source_file(){
 
 # shellcheck disable=SC2181 #Can't check return code within if condition
 		if [ "$?" -gt "0" ] ; then script="404" ; fi
-		tmp="$(echo ${script:0:3} | grep -E '[[:digit:]]{3}')"
+		tmp="$(echo "${script:0:3}" | grep -E '[[:digit:]]{3}')"
 		if [ "$tmp" != "" ] ; then  ((++i))
 		else break ; fi
 	done
