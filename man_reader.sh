@@ -1,11 +1,11 @@
 #!/usr/bin/bash
+# shellcheck disable=SC1090 # sources will never be constant
 
 export MAN_PAGES=1
 trap "echo Exiting..." EXIT
 
 declare install_path="$HOME/.local/bin/man_pages.sh"
 declare remote_path="https://raw.githubusercontent.com/nsainton/Scripts/main"
-declare remote_utils="https://raw.githubusercontent.com/nsainton/Scripts/main/utils/"
 declare script_dir="man_reader_utils"
 declare utils_dir="utils"
 declare -a utils=( "${script_dir}/launcher.sh" "${script_dir}/man_pages_section.sh" \
@@ -65,8 +65,6 @@ parse_option(){
 			option_install="$install_path" ;;
 							[l] )
 			option_list=1 ;;
-							[o] )
-			option_output=1 ;;
 							[h] )
 			help ; exit 0 ;;
 		esac
@@ -77,9 +75,6 @@ parse_option(){
 	Prints help and exits
 	HELP
 help(){
-	declare	suffix
-
-	suffix=".$(echo "$0" | awk -F '.' '{print $NF}')"
 	echo -e "Usage:"
 	printf "%-40b%b\n" "- $0" "Opens the main menu"
 	printf "%-40b%b\n" "- $0 page section" "Opens the given section in the given manpage.\nOptionnal '.' can be used \
@@ -91,7 +86,6 @@ to specify a man section to search in"
 	printf "%-12b%b\n" "\t-i [PATH]" "Installs this script in the provided PATH or \
 $install_path if no path is provided\n\
 (This option currently takes no optionnal PATH and only installs the script in $install_path)"
-#	printf "%-12b%b\n" "\t-o" "When running, output the full script in $(dirname "$0")/$(basename -s "$suffix" "$0")_full.sh"
 	exit 0
 }
 
@@ -114,9 +108,8 @@ toc(){
 main(){
 	declare -i option_help=0
 	declare option_install
-	declare -i option_output
 	declare -i option_list=0
-	declare optstring="iolh"
+	declare optstring="ilh"
 	local ret_val
 
 	parse_option "$@"
