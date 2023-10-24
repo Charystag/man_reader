@@ -2,6 +2,8 @@
 
 ## What does it do ?
 
+### Short intro
+
 This script allow you to navigate the man pages in a more friendly manner
 To do so, it parses the man page to retrieve the sections and subsections
 It then outputs a table of contents that looks like this one
@@ -9,9 +11,11 @@ It then outputs a table of contents that looks like this one
 
 ![man 1 man table of contents](/assets/man1_toc.png "man 1 man")
 
+### Basic actions
+
 After printing the table of contents, it prompts the user with an action
 The following actions are available to the user :
-- `#number` : A number between 1 and the number of sections (18 on our example) \
+- `number` : A number between 1 and the number of sections (18 on our example) \
 entering an invalid section number quits the man page rendering
 - `n` : renders the next section of the man page. Pressing `n` at the first section \
 will render the first section while pressing `n` at the end will exit the page rendering \
@@ -20,3 +24,13 @@ and prompt the user for another man page to read
 - `k` : calls the utility `clear` to clear the terminal output
 - `s` : prints the sections of the man page
 - `q` : quits the man page rendering
+
+
+### Section rendering
+
+> :warning: Beware that at the present time, this script doesn't distinguish between rendering
+> sections and subsections. This means that, if we decide to render the section 7 (number 7 on our example)
+> the script will render from number 7 to number 8, which is the part of section 7 that is before the first
+> subsection
+
+Let's try, for example, to print the number `7`. We get this output in the terminal :
