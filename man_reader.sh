@@ -77,10 +77,10 @@ parse_option(){
 	HELP
 help(){
 	echo -e "Usage:"
-	printf "%-40b%b\n" "- $0" "Opens the main menu"
-	printf "%-40b%b\n" "- $0 page section" "Opens the given section in the given manpage.\nOptionnal '.' can be used \
+	printf "%-40b%b\n" "- man_reader" "Opens the main menu"
+	printf "%-40b%b\n" "- man_reader page section" "Opens the given section in the given manpage.\nOptionnal '.' can be used \
 to specify a man section to search in"
-	echo -e "Example : $0 man.7 Fonts"
+	echo -e "Example : man_reader man.7 Fonts"
 	echo -e "Options:"
 	printf "%-12b%b\n" "\t-h" "Display this help and exits"
 	printf "%-12b%b\n" "\t-l page" "Lists the sections of the given man page"
