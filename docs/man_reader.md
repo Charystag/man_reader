@@ -123,4 +123,4 @@ There are two ways to contribute to this project
 
 ## Demo Video
 
-![](https://youtu.be/no9y0Kk-3hs)
+[![preview](/assets/preview.png)](https://youtu.be/no9y0Kk-3hs)
