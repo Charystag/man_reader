@@ -4,7 +4,7 @@
 export MAN_PAGES=1
 trap "echo Exiting..." EXIT
 
-declare install_path="$HOME/.local/bin/man_pages.sh"
+declare install_path="$HOME/.local/bin/man_reader"
 declare remote_path="https://raw.githubusercontent.com/nsainton/Scripts/main"
 declare script_dir="man_reader_utils"
 declare utils_dir="utils"
@@ -30,8 +30,9 @@ source_utils(){
 		then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/$file \e[0m" ; exit 1 ; fi
 		(( ++i ))
 	done
-	if [ "$1" != "" ] && ! curl -fsSL "$remote_path/man_reader.sh" >> "$install_path" ;
-	then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/man_pages.sh \e[0m" ; exit 1 ; fi
+	file="man_reader.sh"
+	if [ "$1" != "" ] && ! curl -fsSL "$remote_path/$file" >> "$install_path" ;
+	then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/$file \e[0m" ; exit 1 ; fi
 	echo -e "\e[0;32mAll dependencies are met\e[0m"
 }
 
