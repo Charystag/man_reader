@@ -124,3 +124,7 @@ Pour obtenir de l'aide sur l'utilisation du script
 Il y à deux manieres de contribuer à ce projet
 - M'envoyer un message sur Discord ou Slack (pour les etudiants de 42) ou à ce [mail](mailto:nsainton@student.42.fr?subject=[man_reader])
 - Les Pull-Request qui sont, pour le moment fermées mais seront bientot disponible pour vous permettre d'ajouter toutes vos incroyables features au projet
+
+## Demonstration en video
+
+![](https://youtu.be/no9y0Kk-3hs)

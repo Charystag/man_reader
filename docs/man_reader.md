@@ -120,3 +120,7 @@ To get help
 There are two ways to contribute to this project
 - Send me a message on discord (for 42 students) or to the following [email](mailto:nsainton@student.42.fr?subject=[man_reader])
 - Pull requests that are currently closed but are going to be oppened soon for you to add all your amazing features to the project
+
+## Demo Video
+
+![](https://youtu.be/no9y0Kk-3hs)
