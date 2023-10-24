@@ -50,3 +50,58 @@ To run the script, you can run the following command in your terminal
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh)
 ```
+
+> You can run `bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) bash 30`
+> For more information about **Process Substitution**
+
+It will then prompt the main menu and the script will be able to be used as explained above.
+
+When running the script that way, arguments can be provided on the command line as if it was run with `./man_reader.sh`.
+
+### Local install
+
+To install the script locally, at `$HOME/.local/bin/man_reader`, you can run 
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) -i
+```
+Then, if you add the path `$HOME/.local/bin` to the variable PATH, you will be able to run the script with
+```bash
+man_reader
+```
+
+### Only prints toc
+
+To print only the table of content, you can run
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) -l [page]
+```
+With an optionnal page as an argument. If no page is entered, you will be prompted for a man page when the script starts
+It will then print the toc of said man page and exit
+
+### Read only one page (no main menu)
+
+When running the following command :
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) page [section]
+```
+You can print the required page (which can be passed as an argument with the format page.man\_section)
+- If no (optionnal) section is provided, it will open the main menu for the required man page and exit when asked for
+- If a section is provided, it will print the required section in the required man\_page (if found). Section can be specified \
+in two formats :
+	- A number (between 1 and the number of section in the toc) (ex : `man_reader bash 30`)
+	- A string describing the section (ex : `man_reader bash 'Process Substitution'`). Don't forget the `"` or `'` so that \
+the section string is treated as one argument.
+
+### Get help
+
+Run the following command :
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh)
+```
+To get help
+
+## Contributing
+
+There are two ways to contribute to this project
+- Send me a message on discord (for 42 students) or to the following [email](mailto:nsainton@student.42.fr?subject=[man_reader])
+- You can also fork an make a pull-request to add features you'd like to see included. Keep in mind to use conventionnal commits and to keep it compliant with the linter `shellcheck` to see your pull-request accepted
