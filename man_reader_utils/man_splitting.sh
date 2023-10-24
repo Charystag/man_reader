@@ -41,7 +41,7 @@ Example: wait.2"
 	page=${vars[0]}
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
 	pages="$(whereis "$page"  | grep -E -o "\<[^ ]+man/man${section}[^ ]+\>" | tr '\n' ' ' | rev | cut -c 2- | rev)"
-	if [ "$ret_val" = "" ] && [ "$section" != "" ]
+	if [ "$pages" = "" ] && [ "$section" != "" ]
 	then 
 		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
 		pages="$(whereis "$page"  | grep -E -o "\<[^ ]+man/man[^ ]+\>" | tr '\n' ' ' | rev | cut -c 2- | rev)"
