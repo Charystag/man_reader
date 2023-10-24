@@ -15,6 +15,8 @@ man_section(){
 
 	find_page_section "$1"
 	if [ "$section" = "" ] ; then echo -e "$usage" ; return ; fi
+
+# shellcheck disable=SC2154 #ret_val will be declared in calling function
 	page="$ret_val"
 	add_slash page "b"
 	list_sections "$page"
