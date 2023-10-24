@@ -28,9 +28,17 @@ and prompt the user for another man page to read
 
 ### Section rendering
 
+Let's try, for example, to print the number `8`. We get this output in the terminal :
+
+![man.1 section 7.1](/assets/man1-8.png "section 7.1 of man in section 1")
+
 > :warning: Beware that at the present time, this script doesn't distinguish between rendering
 > sections and subsections. This means that, if we decide to render the section 7 (number 7 on our example)
 > the script will render from number 7 to number 8, which is the part of section 7 that is before the first
 > subsection
 
-Let's try, for example, to print the number `7`. We get this output in the terminal :
+That is, if we try for example to print the number `7` instead of number `8`. We get the following output :
+
+![man.1 section 7](/assets/man1-7.png "section 7 of man in section 1")
+
+## How to use this script ?
