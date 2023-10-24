@@ -17,6 +17,19 @@ user_input(){
 	read -r ref
 }
 
+:<<-'IS_INT'
+	Checks if a number given as an argument is an integer
+	IS_INT
+is_int(){
+	declare number
+	declare tmp
+
+	number="$1"
+	if [ "${#number}" -eq "0" ] ; then return 1 ; fi
+	tmp="$(echo "$number" | grep -E -o '[[:digit:]]' | tr -d '\n')"
+	if [ "${#number}" -ne "${#tmp}" ] ; then return 1 ; fi
+	return 0
+}
 
 :<<-'COLORED_MAN'
 	Forces `less` to use colors to display man pages
