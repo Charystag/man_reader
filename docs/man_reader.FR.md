@@ -38,6 +38,11 @@ Essayons, par exemple, d'afficher le nombre `8`. Nous obtenons cet affichage dan
 
 ![man.1 section 7.1](/assets/man1-8.png "section 7.1 of man in section 1")
 
+> :bulb: Lors de l'affichage d'une page, vous pouvez presser `k` pour ajouter des espaces en
+> bas de la page. Ceci nous donne l'affichage suivant : 
+
+![man.1 section 7.1 padded](/assets/man1-8_padded.png "section 7.1 of man in section 1 with padding")
+
 > :warning: Attention, au moment de l'écriture de cette documentation, le script ne fait pas
 > la distinction entre l'affichage des sections et des sous-sections. Cela signifie que si nous
 > decidons d'afficher la section 7 (numero 7 sur notre exemple), le script va afficher du numero

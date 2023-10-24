@@ -35,6 +35,11 @@ Let's try, for example, to print the number `8`. We get this output in the termi
 
 ![man.1 section 7.1](/assets/man1-8.png "section 7.1 of man in section 1")
 
+> :bulb: When rendering any page, you can press `k` to pad with spaces on the bottom.
+> This gives us the following output : 
+
+![man.1 section 7.1 padded](/assets/man1-8_padded.png "section 7.1 of man in section 1 with padding")
+
 > :warning: Beware that at the present time, this script doesn't distinguish between rendering
 > sections and subsections. This means that, if we decide to render the section 7 (number 7 on our example)
 > the script will render from number 7 to number 8, which is the part of section 7 that is before the first
