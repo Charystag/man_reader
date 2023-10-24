@@ -9,6 +9,7 @@ find_page_section(){
 	declare prompt
 	declare page="$1"
 	declare section
+	declare available_sections
 	declare -a vars
 
 	prompt="please give a man page to find, you can give an optional section with a .\n
@@ -22,11 +23,13 @@ Example: wait.2"
 	then 
 		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
 		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+man/man[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
-		section="$(echo "$ret_val" | grep -E -o "[[:digit:]]+")"
-		section="${section:0:1}"
-		printf "%b\n" "${GRN}First match${CRESET} is : section ${GRN}$section${CRESET}"
 	fi
-	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; fi
+	section="$(echo "$ret_val" | grep -E -o "[[:digit:]]+")"
+	section="${section:0:1}"
+	printf "%b\n" "${GRN}Man page${CRESET} from : section ${GRN}$section${CRESET}"
+	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; return 1 ; fi
+	available_sections="$(whereis "$page" | grep -E -o '[[:digit:]]' | uniq | tr '\n' '-' | rev | cut -c 2- | rev)"
+	printf "%b\n" "${GRN}Available sections ${CRESET}are : $available_sections"
 }
 
 :<<-'LIST_SECTIONS'
