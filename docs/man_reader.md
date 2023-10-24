@@ -7,7 +7,7 @@ To do so, it parses the man page to retrieve the sections and subsections
 It then outputs a table of contents that looks like this one
 (Example is from `man man.1` man page, which is like `man 1 man`)
 
-![man 1 man table of contents](/assets/man_1_toc.png "man 1 man")
+![man 1 man table of contents](/assets/man1_toc.png "man 1 man")
 
 After printing the table of contents, it prompts the user with an action
 The following actions are available to the user :
