@@ -123,4 +123,6 @@ There are two ways to contribute to this project
 
 ## Demo Video
 
+Click on the picture to open the video on youtube
+
 [![preview](/assets/preview.png)](https://youtu.be/no9y0Kk-3hs)

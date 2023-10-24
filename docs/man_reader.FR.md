@@ -127,4 +127,6 @@ Il y à deux manieres de contribuer à ce projet
 
 ## Démonstration en vidéo
 
+Cliquez sur la photo pour ouvrir la video sur youtube
+
 [![preview](/assets/preview.png)](https://youtu.be/no9y0Kk-3hs)
