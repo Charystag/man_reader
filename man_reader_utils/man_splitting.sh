@@ -2,12 +2,34 @@
 
 export MAN_SPLITTING=1
 
+:<<-'RETRIEVE_PAGE'
+	If multiple pages are found when looking for a man page in a given section
+	Ensure to take the non posix one
+	RETRIEVE_PAGE
+retrieve_page(){
+	declare -i i=0
+	declare -a pages
+	declare usage
+
+	usage="Usage: retrieve_page pages"
+	if [ "$1" = "" ] ; then  echo "$usage" ; return 1 ; fi
+	IFS=' ' read -ra pages<<<"$1"
+	if [ "${#pages[@]}" -lt "2" ] ; then ret_val="${pages[0]}" ; return 0 ; fi
+	while [ "$i" -lt "${#pages[@]}" ]
+	do
+		if echo "${pages[$i]}" | grep -E -i "posix" 1>/dev/null
+		then (( ++i )) ; else ret_val="${pages[$i]}" ; return 0 ; fi
+	done
+	return 1
+}
+
 :<<-'FIND_PAGE_SECTION'
 	Finds a man page in a given man section or picks the first man page available
 	FIND_PAGE_SECTION
 find_page_section(){
 	declare prompt
 	declare page="$1"
+	declare pages
 	declare section
 	declare available_sections
 	declare -a vars
@@ -18,12 +40,15 @@ Example: wait.2"
 	IFS='.' read -ra vars <<<"$page"
 	page=${vars[0]}
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
-	ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+man/man${section}[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
+	pages="$(whereis "$page"  | grep -E -o "\<[^ ]+man/man${section}[^ ]+\>" | tr '\n' ' ' | rev | cut -c 2- | rev)"
 	if [ "$ret_val" = "" ] && [ "$section" != "" ]
 	then 
 		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
-		ret_val=$(whereis "$page"  | grep -E -o "\<[^ ]+man/man[^ ]+\>" | tr '\n' ' ' | awk '{ print $1 }')
+		pages="$(whereis "$page"  | grep -E -o "\<[^ ]+man/man[^ ]+\>" | tr '\n' ' ' | rev | cut -c 2- | rev)"
 	fi
+	retrieve_page "$pages"
+#	ret_val="$(echo "$pages" | awk '{ print $1 }')"
+	echo "$pages|pages found"
 	section="$(echo "$ret_val" | grep -E -o "[[:digit:]]+")"
 	section="${section:0:1}"
 	if [ "$section" != "" ] ; then printf "%b\n" "${GRN}Man page${CRESET} from : section ${GRN}$section${CRESET}" ; fi
