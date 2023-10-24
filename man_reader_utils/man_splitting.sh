@@ -26,7 +26,7 @@ Example: wait.2"
 	fi
 	section="$(echo "$ret_val" | grep -E -o "[[:digit:]]+")"
 	section="${section:0:1}"
-	printf "%b\n" "${GRN}Man page${CRESET} from : section ${GRN}$section${CRESET}"
+	if [ "$section" != "" ] ; then printf "%b\n" "${GRN}Man page${CRESET} from : section ${GRN}$section${CRESET}" ; fi
 	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; return 1 ; fi
 	available_sections="$(whereis "$page" | grep -E -o '[[:digit:]]' | uniq | tr '\n' '-' | rev | cut -c 2- | rev)"
 	printf "%b\n" "${GRN}Available sections ${CRESET}are : $available_sections"
