@@ -106,7 +106,7 @@ the section string is treated as one argument.
 
 Run the following command :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) -h
 ```
 To get help
 
@@ -114,4 +114,4 @@ To get help
 
 There are two ways to contribute to this project
 - Send me a message on discord (for 42 students) or to the following [email](mailto:nsainton@student.42.fr?subject=[man_reader])
-- You can also fork an make a pull-request to add features you'd like to see included. Keep in mind to use conventionnal commits and to keep it compliant with the linter `shellcheck` to see your pull-request accepted
+- Pull requests that are currently closed but are going to be oppened soon for you to add all your amazing features to the project
