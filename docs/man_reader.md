@@ -42,3 +42,11 @@ That is, if we try for example to print the number `7` instead of number `8`. We
 ![man.1 section 7](/assets/man1-7.png "section 7 of man in section 1")
 
 ## How to use this script ?
+
+### Run from online source
+
+To run the script, you can run the following command in your terminal
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh)
+```
