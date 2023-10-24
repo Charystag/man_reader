@@ -1,5 +1,8 @@
 # Man Reader - A nice command-line viewer for man pages
 
+> :warning: This script needs bash version >=4 to run
+> You can check your version with `bash --version`
+
 ## What does it do ?
 
 ### Short intro
