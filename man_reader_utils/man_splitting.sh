@@ -19,7 +19,8 @@ retrieve_page(){
 		if echo "${pages[$i]}" | grep -E -i "posix" 1>/dev/null
 		then (( ++i )) ; else ret_val="${pages[$i]}" ; return 0 ; fi
 	done
-	return 1
+	ret_val="${pages[$((i-1))]}"
+	return 0
 }
 
 :<<-'FIND_PAGE_SECTION'
@@ -46,8 +47,6 @@ Example: wait.2"
 		pages="$(whereis "$page"  | grep -E -o "\<[^ ]+man/man[^ ]+\>" | tr '\n' ' ' | rev | cut -c 2- | rev)"
 	fi
 	retrieve_page "$pages"
-#	ret_val="$(echo "$pages" | awk '{ print $1 }')"
-	echo "$pages|pages found"
 	section="$(echo "$ret_val" | grep -E -o "[[:digit:]]+")"
 	section="${section:0:1}"
 	if [ "$section" != "" ] ; then printf "%b\n" "${GRN}Man page${CRESET} from : section ${GRN}$section${CRESET}" ; fi
@@ -180,6 +179,7 @@ cut_man(){
 	declare	commands
 	declare command
 	declare man_section
+	declare tmp_file
 	declare header_end
 	declare page="$1"
 	declare base="$2"
@@ -196,5 +196,7 @@ cut_man(){
 	build_range "$base" "$stop"
 	commands="${commands}$ret_val"
 	man_section="$(eval "$command" "$page" | sed -n -E "$commands")"
-	man <(echo "$man_section")
+	if [ "$(uname -s)" = "Darwin" ]
+	then echo bonjour ; tmp_file="$(mktemp)" && echo "$man_section" > "$tmp_file" && man "$tmp_file" && rm "$tmp_file"
+	else man <(echo "$man_section") ; fi
 }
