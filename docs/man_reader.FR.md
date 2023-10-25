@@ -3,24 +3,24 @@
 > :warning: Ce script nécessite une version de bash >= pour s'éxecuter.
 > Vous pouvez vérifier votre version avec `bash --version`
 
-## Preambule - Comment naviguer a travers le man ?
+## Preambule - Comment naviguer à travers le man ?
 
-Vous devez deja savoir que l'on peut scroller avec les souris et utiliser
-les fleches directionnelles pour naviguer a travers le man. Cependant, cet
-outil etant concu pour etre utilise en ligne de commande, il existe des
+Vous devez déjà savoir que l'on peut scroller avec les souris et utiliser
+les flèches directionnelles pour naviguer a travers le man. Cependant, cet
+outil etant conçu pour etre utilisé en ligne de commande, il existe des
 touches qui nous permettent de le traverser plus vite :
 - `j` : La touche `j` nous fait avancer d'une ligne. On peut ajouter un \
-nomber avant `j` pour avancer de `n` lignes. Par exemple, `6j` nous fait \
+nombre avant `j` pour avancer de `n` lignes. Par exemple, `6j` nous fait \
 avancer de six lignes.
 - `k` : La touche `k` nous fait reculer d'une ligne. On peut aussi ajouter
-un nomber avant la touche `k`
-- `g` : La touche `g` nous ammene en haut de la page
-- `G` : La touche `G` (Maj + g) nous ammene en bas de la page
-- `f` : La touche `f` nous fait avancer d'un ecran. Nous pouvons aussi \
-presser la barre espace pour obtenir le meme resultat.
-- `b` : La touche `b` nous fait reculer d'un ecran
-- `d` : La touche `d` nous fait avancer d'un demi-ecran
-- `u` : La touche `u` nous fait reculer d'un demi-ecran
+un nombre avant la touche `k`
+- `g` : La touche `g` nous ammène en haut de la page
+- `G` : La touche `G` (Maj + g) nous ammène en bas de la page
+- `f` : La touche `f` nous fait avancer d'un écran. Nous pouvons aussi \
+presser la barre espace pour obtenir le même résultat.
+- `b` : La touche `b` nous fait reculer d'un écran
+- `d` : La touche `d` nous fait avancer d'un demi-écran
+- `u` : La touche `u` nous fait reculer d'un demi-écran
 - `q` : La touche `q` nous permet de quitter la page de man
 
 ## Qu'est-ce que ce script fait ?
@@ -147,6 +147,6 @@ Il y à deux manieres de contribuer à ce projet
 
 ## Démonstration en vidéo
 
-Cliquez sur la photo pour ouvrir la video sur youtube
+Cliquez sur la photo pour ouvrir la vidéo sur youtube
 
 [![preview](/assets/preview.png)](https://youtu.be/no9y0Kk-3hs)
