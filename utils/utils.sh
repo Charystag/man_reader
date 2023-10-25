@@ -116,8 +116,8 @@ build_regex(){
 	ret_val=
 	prompt="please provide a string to match.\nExample: 'Short Format'"
 	if [ "$input" = "" ] ; then user_input "$prompt" input ; fi
-	tmp="$(echo "$input" | grep -E "^(.SS|.SH){1}")"
-	if [ "$tmp" = "" ] ; then ret_val="(.SS|.SH){1}" ; fi
+	tmp="$(echo "$input" | grep -E "^(.SS|.SH|.Ss|.Sh){1}")"
+	if [ "$tmp" = "" ] ; then ret_val="^(.SS|.SH|.Sh|.Ss){1}" ; fi
 	ret_val="${ret_val}[[:space:]]*"
 	i=0
 	while [ "$i" -lt "${#input}" ]

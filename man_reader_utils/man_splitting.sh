@@ -72,7 +72,7 @@ list_sections(){
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
 	if [ "$separator" = "" ] ; then separator="=" ; fi
 	add_slash page "b"
-	list="$(zcat "$page" | grep -E '^\.SS|^\.SH' | tr '\n' "$separator")"
+	list="$(zcat "$page" | grep -E '^\.S(s|S)|^\.S(h|H)' | tr '\n' "$separator")"
 	ret_val="$list"
 }
 
@@ -91,7 +91,7 @@ print_section(){
 	if [ "$section_number" = "" ] ; then declare -gi section_number=1 ; fi
 	if [ "$subsection_number" = "" ] ; then declare -gi subsection_number=1 ; fi
 	if [ "$1" = "" ] ; then echo "$usage" ; return 1 ; fi
-	if [ "${1:0:3}" = ".SH" ]
+	if [ "${1:0:3}" = ".SH" ] || [ "${1:0:3}" = ".Sh" ]
 	then 
 		printf "%-5b%-20b%b\n" "($((i+1)))" "Section $section_number " "-$section"
 		(( ++section_number )) ; (( subsection_number=1 ))
@@ -184,7 +184,7 @@ cut_man(){
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
 	add_slash page "b"
-	header_end="/$(build_regex ".SH")/="
+	header_end="/^\.S(h|H)/="
 	header_end="$(zcat "$page" | sed -n -E "$header_end" | head -n 1)"
 	commands="1,$((header_end - 1))p;" 
 	build_range "$base" "$stop"
