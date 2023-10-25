@@ -67,12 +67,15 @@ list_sections(){
 	declare list
 	declare -I separator
 	declare prompt="Please provide the path to a .gz file containing a manpage"
+	declare command
 
 	page="$1"
 	if [ "$page" = "" ] ; then user_input "$prompt" page ; fi
 	if [ "$separator" = "" ] ; then separator="=" ; fi
 	add_slash page "b"
-	list="$(zcat "$page" | grep -E '^\.S(s|S)|^\.S(h|H)' | tr '\n' "$separator")"
+	if [ "$(echo "$page" | awk -F'.' '{ print $NF }')" = "gz" ]
+	then command="zcat" ; else command="cat" ; fi
+	list="$(eval "$command" "$page" | grep -E '^\.S(s|S)|^\.S(h|H)' | tr '\n' "$separator")"
 	ret_val="$list"
 }
 
@@ -175,6 +178,7 @@ pick_section(){
 	CUT_MAN
 cut_man(){
 	declare	commands
+	declare command
 	declare man_section
 	declare header_end
 	declare page="$1"
@@ -183,12 +187,14 @@ cut_man(){
 	declare usage="Usage: cut_man man_page base_section stop_section"
 
 	if [ "$stop" == "" ] ; then echo -e "$usage" ; return ; fi
+	if [ "$(echo "$page" | awk -F'.' '{ print $NF }')" = "gz" ]
+	then command="zcat" ; else command="cat" ; fi
 	add_slash page "b"
 	header_end="/^\.S(h|H)/="
-	header_end="$(zcat "$page" | sed -n -E "$header_end" | head -n 1)"
+	header_end="$(eval "$command" "$page" | sed -n -E "$header_end" | head -n 1)"
 	commands="1,$((header_end - 1))p;" 
 	build_range "$base" "$stop"
 	commands="${commands}$ret_val"
-	man_section="$(zcat "$page" | sed -n -E "$commands")"
+	man_section="$(eval "$command" "$page" | sed -n -E "$commands")"
 	man <(echo "$man_section")
 }
