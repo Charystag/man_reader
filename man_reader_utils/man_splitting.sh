@@ -197,6 +197,6 @@ cut_man(){
 	commands="${commands}$ret_val"
 	man_section="$(eval "$command" "$page" | sed -n -E "$commands")"
 	if [ "$(uname -s)" = "Darwin" ]
-	then echo bonjour ; tmp_file="$(mktemp)" && echo "$man_section" > "$tmp_file" && man "$tmp_file" && rm "$tmp_file"
+	then tmp_file="$(mktemp)" && echo "$man_section" > "$tmp_file" && man "$tmp_file" && rm "$tmp_file"
 	else man <(echo "$man_section") ; fi
 }
