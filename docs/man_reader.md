@@ -3,7 +3,25 @@
 > :warning: This script needs bash version >=4 to run
 > You can check your version with `bash --version`
 
-## What does it do ?
+## Preamble - How to navigate the man ?
+
+You must already know that we can use the mouse scroll and the ups and down
+arrows to navigate the `man`. However, as it is a tool design for command-line,
+there are some shortcut keys that allow us to navigate it more quickly :
+- `j` : Pressing `j` takes us 1 line forward. We can add a number before `j` \
+to go `n` lines forward. For example `6j` takes us six lines ahead.
+- `k` : Pressing `k` takes us 1 line back. We can also add a number before the \
+`k`.
+- `g` : Pressing `g` takes us to the top of the man page
+- `G` : Pressing `G` (Shift + g) takes us to the bottom of the man page
+- `f` : Pressing `f` takes us one full screen ahead. We can also press the spacebar \
+to achieve the same result.
+- `b` : Pressing `b` takes us one screen back
+- `d` : Pressing `d` takes us half a window forward
+- `u` : Pressing `u` takes us half a window back
+- `q` : Pressing `q` allows us to exit the man page
+
+## What does this script do ?
 
 ### Short intro
 
