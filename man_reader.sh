@@ -42,7 +42,6 @@ source_utils(){
 install_script(){
 	declare installed_prompt
 	declare -l user_reply
-	declare GRN="\e[0;32m"
 	declare RED="\e[0;31m"
 	declare CRESET="\e[0m"
 
