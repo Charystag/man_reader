@@ -4,6 +4,11 @@
 
 export MAN_PAGES_SECTION=1
 
+
+#-------------------------------------------------------
+#-------------------READ PAGE SECTION-------------------
+#-------------------------------------------------------
+
 :<<-'PICK_SECTION_NUMBER'
 	Picks the right section according to a section number
 	Usage: pick_section_number sections_list number
