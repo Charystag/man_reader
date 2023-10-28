@@ -2,6 +2,10 @@
 
 export MAN_SPLITTING=1
 
+#-----------------------------------------------------------------------
+#----------------------------PAGE RETRIEVAL-----------------------------
+#-----------------------------------------------------------------------
+
 :<<-'RETRIEVE_PAGE'
 	If multiple pages are found when looking for a man page in a given section
 	Ensure to take the non posix one
@@ -54,6 +58,10 @@ Example: wait.2"
 	available_sections="$(whereis "$page" | grep -E -o '[[:digit:]]' | uniq | tr '\n' '-' | rev | cut -c 2- | rev)"
 	printf "%b\n" "${GRN}Available sections ${CRESET}are : $available_sections"
 }
+
+#-------------------------------------------------------------------------------------------------
+#------------------------------------SECTIONS LISTING---------------------------------------------
+#-------------------------------------------------------------------------------------------------
 
 :<<-'LIST_SECTIONS'
 	Function that takes a path to a man page as an input and
@@ -131,6 +139,11 @@ print_sections(){
 	done
 }
 
+
+#-----------------------------------------------------------------------------------
+#-------------------------------SECTION SELECTION-----------------------------------
+#-----------------------------------------------------------------------------------
+
 :<<-'PICK_SECTION'
 	Function that picks the next section with the provided regexp
 	Example with man page of `git-status` and section "SYNOPSIS"
@@ -169,6 +182,11 @@ pick_section(){
 	done
 	#ret_val=$(echo $input | sed -n "/$regex/,+1p")
 }
+
+
+#--------------------------------------------------------
+#----------------------PAGE PRINTING---------------------
+#--------------------------------------------------------
 
 :<<-'CUT_MAN'
 	Function that cuts a man page using the given sections
