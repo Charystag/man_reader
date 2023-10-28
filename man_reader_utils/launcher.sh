@@ -5,6 +5,11 @@ export LAUNCHER=1
 shopt -s extglob # enable extglob shell option for
 # extended pattern matching
 
+
+#-------------------------------------------------------
+#--------------------PAGE READING-----------------------
+#-------------------------------------------------------
+
 :<<-'READ_PAGE'
 	Takes a page as an input and split it into sections
 	Allows the user to go through the sections and go to
@@ -54,6 +59,10 @@ Example: '23' or 'q'\
 		fi
 	done
 }
+
+#----------------------------------------------------------
+#---------------------PAGE SELECTION-----------------------
+#----------------------------------------------------------
 
 :<<-'MAIN_MENU'
 	Main function that will be used to run the script
