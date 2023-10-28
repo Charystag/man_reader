@@ -41,15 +41,27 @@ source_utils(){
 	INSTALL_SCRIPT
 install_script(){
 	declare installed_prompt
+	declare -l user_reply
+	declare GRN="\e[0;32m"
+	declare RED="\e[0;31m"
+	declare CRESET="\e[0m"
 
 	installed_prompt="Script installed at : $install_path"
 	if [ -f "$install_path" ]
-	then echo -e "Script already exists at : $install_path" ; exit 0 ; fi
+	then
+		echo -e "Script already exists at : $install_path.\n\
+Would you like to remove and install? [y/n]"
+		read -r -n 1 user_reply
+		echo
+		if [ "$user_reply" != 'y' ] ; then exit 0 ; fi
+		if ! rm "$install_path" ; then echo "Couldn't remove : $install_path" ; fi
+	fi
+	echo -e "Installing script..."
 	if ! mkdir -p "$(dirname "$install_path")"
-	then echo "Couldn't create directory : $(dirname "$install_path")" ; exit 1
+	then echo -e "${RED}Couldn't create directory${CRESET} : $(dirname "$install_path")" ; exit 1
 	else touch "$install_path" && chmod "+x" "$install_path" && \
 	source_utils 1 && echo -e "$installed_prompt" && exit 0 ; fi
-	echo -e "Couldn't install script"
+	echo -e "${RED}Couldn't install script${CRESET}"
 	exit 1
 }
 
