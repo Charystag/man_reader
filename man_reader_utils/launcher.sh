@@ -24,10 +24,9 @@ read_page(){
 	declare -I separator
 
 	prompt="Please enter a section number.\n\
-Press '${GRN}n${CRESET}' for next, '${GRN}p${CRESET}' for previous \
-or '${GRN}q${CRESET}' to quit\n\
-Press '${GRN}k${CRESET}' to clear terminal or \
-Press '${GRN}s${CRESET}' to print sections \n\
+Press '${GRN}n${CRESET}' for next or '${GRN}p${CRESET}' for previous \n\
+Press '${GRN}r${CRESET}' to rerender section or '${GRN}q${CRESET}' to quit\n\
+Press '${GRN}k${CRESET}' to clear terminal or '${GRN}s${CRESET}' to print sections \n\
 Example: '23' or 'q'\
 "
 	find_page_section "$1"
@@ -42,6 +41,7 @@ Example: '23' or 'q'\
 		user_input "$prompt" section
 		case "$section" in ( [n] ) (( ++i )) ;;
 					[p] ) (( --i )) ;;
+					[r] ) ;;
 					+([[:digit:]]) ) (( i="$((section))" )) ;;
 					[q] ) break ;;
 					[k] ) command clear
