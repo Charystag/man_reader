@@ -42,7 +42,7 @@ find_page_section(){
 Example: wait.2"
 	if [ "$1" = "" ] ; then user_input "$prompt" page ; fi
 	IFS='.' read -ra vars <<<"$page"
-	page=${vars[0]}
+	page="$(echo "${vars[0]}" | tr '=' '.')"
 	if [ "${vars[1]}" != "" ] ; then section="${vars[1]}" ; fi
 	pages="$(whereis "$page"  | grep -E -o "\<[^ ]+man/man${section}[^ ]+\>" | tr '\n' ' ' | rev | cut -c 2- | rev)"
 	if [ "$pages" = "" ] && [ "$section" != "" ]
