@@ -39,6 +39,8 @@ Example: '23' or 'q'\
 	IFS="$separator" read -ra sections <<<"$ret_val"
 	while true
 	do
+		if [ "$i" -ge "1" ] && [ "$i" -le "${#sections[@]}" ]
+		then echo -e "You are on section : ${GRN}$i${CRESET}" ; fi
 		user_input "$prompt" section
 		case "$section" in ( [n] ) (( ++i )) ;;
 					[p] ) (( --i )) ;;
