@@ -39,15 +39,15 @@ Example: '23' or 'q'\
 	IFS="$separator" read -ra sections <<<"$ret_val"
 	while true
 	do
-		if [ "$i" -ge "1" ] && [ "$i" -le "${#sections[@]}" ]
-		then echo -e "You are on section : ${GRN}$i${CRESET}" ; fi
 		user_input "$prompt" section
 		case "$section" in ( [n] ) (( ++i )) ;;
 					[p] ) (( --i )) ;;
 					+([[:digit:]]) ) (( i="$((section))" )) ;;
 					[q] ) break ;;
-					[k] ) command clear ; continue ;;
-					[s] ) print_sections "$page" ; continue ;;
+					[k] ) command clear
+						echo -e "You are on section : ${GRN}$i${CRESET}" ; continue ;;
+					[s] ) print_sections "$page"
+						echo -e "You are on section : ${GRN}$i${CRESET}" ; continue ;;
 					* ) echo "Unrecognized option, try again"
 						continue ;;
 		esac
