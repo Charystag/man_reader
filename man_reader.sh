@@ -56,16 +56,16 @@ install_script(){
 Would you like to remove and install? [y/n]"
 		read -r -n 1 user_reply
 		echo
-		if [ "$user_reply" != 'y' ] ; then exit 0 ; fi
+		if [ "$user_reply" != 'y' ] ; then return 0 ; fi
 		if ! rm "$install_path" ; then echo "Couldn't remove : $install_path" ; fi
 	fi
 	echo -e "Installing script..."
 	if ! mkdir -p "$(dirname "$install_path")"
 	then echo -e "${RED}Couldn't create directory${CRESET} : $(dirname "$install_path")" ; exit 1
 	else touch "$install_path" && chmod "+x" "$install_path" && \
-	source_utils 1 && echo -e "$installed_prompt" && exit 0 ; fi
+	source_utils 1 && echo -e "$installed_prompt" && return 0 ; fi
 	echo -e "${RED}Couldn't install script${CRESET}"
-	exit 1
+	return 1
 }
 
 :<<-'CHECK_UPDATE'
@@ -162,7 +162,7 @@ main(){
 	OPTIND=1
 	if [ "$option_help" -eq "1" ] ; then help ; fi
 	check_update
-	if [ "$option_install" != "" ] ; then install_script ; fi
+	if [ "$option_install" != "" ] ; then install_script ; exit "$?" ; fi
 	source_utils
 	if [ "$option_list" -eq "1" ] ; then toc "$1" ; return "$?" ; fi
 	if [ "${#@}" -gt "2" ]
