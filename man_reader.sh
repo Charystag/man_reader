@@ -27,13 +27,12 @@ source_utils(){
 	while [ "$i" -lt "${#utils[@]}" ]
 	do
 		file="${utils[$i]}"
-		(( ++i ))
-		if [ "$(basename $file)" = ".version" ] ; then continue ; fi
 		if [ "$1" != "" ] ; then command="curl -fsSL $remote_path/$file >> $install_path"
 		else command=". <(curl -fsSL $remote_path/$file)" ; fi
 		if [ -f "$file" ] && [ "$1" = "" ] ; then . "$file"
 		elif ! eval "$command"
 		then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/$file \e[0m" ; exit 1 ; fi
+		(( ++i ))
 	done
 	file="man_reader.sh"
 	if [ "$1" != "" ] && ! curl -fsSL "$remote_path/$file" >> "$install_path" ;
