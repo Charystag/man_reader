@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 # shellcheck disable=SC1090 # sources will never be constant
 
+declare NAME="man_reader"
+
 export MAN_PAGES=1
 trap "echo Exiting..." EXIT
 
