@@ -15,6 +15,7 @@ retrieve_page(){
 	declare -i i=0
 	declare -a pages
 
+	ret_val=
 	if [ "$1" = "" ] ; then return 1 ; fi
 	IFS=' ' read -ra pages<<<"$1"
 	if [ "${#pages[@]}" -lt "2" ] ; then ret_val="${pages[0]}" ; return 0 ; fi
