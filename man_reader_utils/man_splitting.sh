@@ -50,13 +50,14 @@ Example: wait.2"
 		printf "%b\n" "${page} ${RED}not found ${CRESET}in section ${section}. Picking first match"
 		pages="$(whereis "$page"  | grep -E -o "\<[^ ]+man/man[^ ]+\>" | tr '\n' ' ' | rev | cut -c 2- | rev)"
 	fi
+	if [ "$pages" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; return 1 ; fi
 	retrieve_page "$pages"
 	section="$(echo "$ret_val" | grep -E -o "[[:digit:]]+")"
 	section="${section:0:1}"
 	if [ "$section" != "" ] ; then printf "%b\n" "${GRN}Man page${CRESET} from : section ${GRN}$section${CRESET}" ; fi
-	if [ "$ret_val" = "" ] ; then echo -e "${page} ${RED}not found ${CRESET}" ; return 1 ; fi
-	available_sections="$(whereis "$page" | grep -E -o '[[:digit:]]' | uniq | tr '\n' '-' | rev | cut -c 2- | rev)"
+	available_sections="$(whereis "$page" | grep -E -o 'man[[:digit:]]+' | grep -E -o '[[:digit:]]+' | uniq | tr '\n' '-' | rev | cut -c 2- | rev)"
 	printf "%b\n" "${GRN}Available sections ${CRESET}are : $available_sections"
+	return 0
 }
 
 #-------------------------------------------------------------------------------------------------
@@ -180,7 +181,6 @@ pick_section(){
 		fi
 		((++i))
 	done
-	#ret_val=$(echo $input | sed -n "/$regex/,+1p")
 }
 
 

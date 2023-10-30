@@ -29,8 +29,7 @@ Press '${GRN}r${CRESET}' to rerender section or '${GRN}q${CRESET}' to quit\n\
 Press '${GRN}k${CRESET}' to clear terminal or '${GRN}s${CRESET}' to print sections \n\
 Example: '23' or 'q'\
 "
-	find_page_section "$1"
-	if [ "$ret_val" = "" ] ; then return ; fi
+	if ! find_page_section "$1" ; then return 0 ; fi
 	if [ "$separator" = "" ] ; then separator="=" ; fi
 	page="$ret_val"
 	print_sections "$page"
