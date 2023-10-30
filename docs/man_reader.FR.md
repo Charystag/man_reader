@@ -3,6 +3,11 @@
 > :warning: Ce script nécessite une version de bash >= pour s'éxecuter.
 > Vous pouvez vérifier votre version avec `bash --version`
 
+> :bulb: Une nouvelle version avec beaucoup moins de bugs, et avec
+> des updates automatiques est disponible! Vous pouvez lancer 
+> `bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) -i`
+> pour l'installer
+
 ## Preambule - Comment naviguer à travers le man ?
 
 Vous devez déjà savoir que l'on peut scroller avec les souris et utiliser
