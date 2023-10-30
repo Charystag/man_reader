@@ -8,7 +8,7 @@ export MAN_PAGES=1
 trap "echo Exiting..." EXIT
 
 declare install_path="$HOME/.local/bin/man_reader"
-declare remote_path="https://raw.githubusercontent.com/nsainton/Scripts/autoupdate"
+declare remote_path="https://raw.githubusercontent.com/nsainton/Scripts/main"
 declare script_dir="man_reader_utils"
 declare utils_dir="utils"
 declare -a utils=( "${script_dir}/launcher.sh" "${script_dir}/man_pages_section.sh" \
