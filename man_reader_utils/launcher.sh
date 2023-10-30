@@ -86,7 +86,7 @@ Example: man or man.7
 		read -r page
 		read_page "$page"
 		echo -e "$continue_prompt"
-		read -r continue_value
+		read -r -n 1 continue_value
 		if [ "$continue_value" != 'y' ] ; then break ; fi
 	done
 	if [ "$continue_value" = "n" ]
