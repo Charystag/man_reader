@@ -27,13 +27,13 @@ source_utils(){
 	while [ "$i" -lt "${#utils[@]}" ]
 	do
 		file="${utils[$i]}"
+		(( ++i ))
 		if [ "$(basename $file)" = ".version" ] ; then continue ; fi
 		if [ "$1" != "" ] ; then command="curl -fsSL $remote_path/$file >> $install_path"
 		else command=". <(curl -fsSL $remote_path/$file)" ; fi
 		if [ -f "$file" ] && [ "$1" = "" ] ; then . "$file"
 		elif ! eval "$command"
 		then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/$file \e[0m" ; exit 1 ; fi
-		(( ++i ))
 	done
 	file="man_reader.sh"
 	if [ "$1" != "" ] && ! curl -fsSL "$remote_path/$file" >> "$install_path" ;
@@ -74,14 +74,20 @@ Would you like to remove and install? [y/n]"
 	If an update is needed, it will prompt the user to update the script
 	CHECK_UPDATE
 check_update(){
-	declare -l update_prompt
+	declare update_prompt
+	declare -l user_input
+	declare version_file
 	
 	update_prompt="An update is available. Would you like to update ?[y/n]"
-	if ! . <(curl -fsSL "${script_dir}/.version") 2>/dev/null ; then return ; fi
-	if [ "$VERSION_ID" -eq "$REMOVE_VERSION_ID" ] ; then return ; fi
+	version_file="${remote_path}/${script_dir}/.version"
+	if ! . <(curl --stderr /dev/null -fsSL "$version_file") ; then return ; fi
+	if [ "$((VERSION_ID))" -ge "$((REMOTE_VERSION_ID))" ] ; then return ; fi
 	echo -e "$update_prompt"
-	read -r -n 1 update_prompt
-	case "$update_prompt" in ( [y] ) rm -f "$install_path" && install_script && option_install= ;;
+	read -r -n 1 user_input
+	echo
+	case "$user_input" in ( [y] ) 
+			rm -f "$install_path" && install_script \
+			&& option_install= && "$install_path" && exit 0 || echo -e "Couldn't update script " ;;
 								[n] ) echo "Not updating" ;;
 								* ) echo "Unrecognized option" ;;
 	esac
@@ -156,9 +162,8 @@ main(){
 	shift "$((OPTIND - 1))"
 	OPTIND=1
 	if [ "$option_help" -eq "1" ] ; then help ; fi
-	. <(curl -fsSL "${script_dir}/.version") 2>/dev/null
-	if [ "$option_install" != "" ]
-	then install_script ; fi
+	check_update
+	if [ "$option_install" != "" ] ; then install_script ; fi
 	source_utils
 	if [ "$option_list" -eq "1" ] ; then toc "$1" ; return "$?" ; fi
 	if [ "${#@}" -gt "2" ]
