@@ -2,6 +2,7 @@
 # shellcheck disable=SC1090 # sources will never be constant
 
 declare NAME="man_reader"
+declare VERSION_ID=1
 
 export MAN_PAGES=1
 trap "echo Exiting..." EXIT
@@ -11,7 +12,8 @@ declare remote_path="https://raw.githubusercontent.com/nsainton/Scripts/main"
 declare script_dir="man_reader_utils"
 declare utils_dir="utils"
 declare -a utils=( "${script_dir}/launcher.sh" "${script_dir}/man_pages_section.sh" \
-"${script_dir}/man_splitting.sh" "${utils_dir}/colorcodes.sh" "${utils_dir}/utils.sh" )
+"${script_dir}/man_splitting.sh" "${utils_dir}/colorcodes.sh" "${utils_dir}/utils.sh" \
+"${script_dir}/.version" )
 
 :<<-'SOURCE_UTILS'
 	Source files needed to run the script
@@ -25,6 +27,7 @@ source_utils(){
 	while [ "$i" -lt "${#utils[@]}" ]
 	do
 		file="${utils[$i]}"
+		if [ "$(basename $file)" = ".version" ] ; then continue ; fi
 		if [ "$1" != "" ] ; then command="curl -fsSL $remote_path/$file >> $install_path"
 		else command=". <(curl -fsSL $remote_path/$file)" ; fi
 		if [ -f "$file" ] && [ "$1" = "" ] ; then . "$file"
@@ -64,6 +67,25 @@ Would you like to remove and install? [y/n]"
 	source_utils 1 && echo -e "$installed_prompt" && exit 0 ; fi
 	echo -e "${RED}Couldn't install script${CRESET}"
 	exit 1
+}
+
+:<<-'CHECK_UPDATE'
+	Check for updates in remote version of script
+	If an update is needed, it will prompt the user to update the script
+	CHECK_UPDATE
+check_update(){
+	declare -l update_prompt
+	
+	update_prompt="An update is available. Would you like to update ?[y/n]"
+	if ! . <(curl -fsSL "${script_dir}/.version") 2>/dev/null ; then return ; fi
+	if [ "$VERSION_ID" -eq "$REMOVE_VERSION_ID" ] ; then return ; fi
+	echo -e "$update_prompt"
+	read -r -n 1 update_prompt
+	case "$update_prompt" in ( [y] ) rm -f "$install_path" && install_script && option_install= ;;
+								[n] ) echo "Not updating" ;;
+								* ) echo "Unrecognized option" ;;
+	esac
+	echo -e "To update, you can run $NAME -i"
 }
 
 :<<-'PARSE_OPTION'
@@ -127,12 +149,14 @@ main(){
 	declare option_install
 	declare -i option_list=0
 	declare optstring="ilh"
+	declare -l user_input
 	local ret_val
 
 	parse_option "$@"
 	shift "$((OPTIND - 1))"
 	OPTIND=1
 	if [ "$option_help" -eq "1" ] ; then help ; fi
+	. <(curl -fsSL "${script_dir}/.version") 2>/dev/null
 	if [ "$option_install" != "" ]
 	then install_script ; fi
 	source_utils
