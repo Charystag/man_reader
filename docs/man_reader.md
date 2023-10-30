@@ -3,10 +3,16 @@
 > :warning: This script needs bash version >=4 to run
 > You can check your version with `bash --version`
 
-> :bulb: A new version with a lot of fixes, and 
-> that run autoupdates is available! You can run
-> `bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) -i`
-> to install
+<blockquote>
+
+:bulb: A new version with a lot of fixes, and 
+that run autoupdates is available! You can run 
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/Scripts/main/man_reader.sh) -i
+```
+to install
+
+</blockquote>
 
 ## Preamble - How to navigate the man ?
 
