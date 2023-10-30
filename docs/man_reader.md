@@ -102,6 +102,9 @@ Then, if you add the path `$HOME/.local/bin` to the variable PATH, you will be a
 man_reader
 ```
 
+> :bulb: You can add the line `export PATH="$PATH:$HOME/.local/bin/"` to your `~/.bashrc` or `~/.zshrc` file if you're
+> using bash or zsh as your login shell.
+
 ### Only prints toc
 
 To print only the table of content, you can run

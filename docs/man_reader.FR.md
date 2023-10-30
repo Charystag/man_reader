@@ -109,6 +109,9 @@ Par la suite, en ajoutant le chemin `$HOME/.local/bin/man_reader` à la variable
 man_reader
 ```
 
+> :bulb: Vous pouvez ajouter la ligne `export PATH="$PATH:$HOME/.local/bin/"` dans le fichier
+> `~/.zshrc` ou `~/.bashrc` si zsh ou bash est votre login shell.
+
 ### Affichage de la table des matières
 
 Pour afficher seulement la table des matières de la page de man, vous pouvez lancer :
