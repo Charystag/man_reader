@@ -86,7 +86,7 @@ check_update(){
 	echo
 	case "$user_input" in ( [y] ) 
 			rm -f "$install_path" && install_script \
-			&& option_install= && "$install_path" && exit 0 || echo -e "Couldn't update script " ;;
+			&& option_install= && return 0 || echo -e "Couldn't update script " ;;
 								[n] ) echo "Not updating" ;;
 								* ) echo "Unrecognized option" ;;
 	esac
