@@ -108,6 +108,8 @@ parse_option(){
 			option_list=1 ;;
 							[h] )
 			help ;;
+							[n] )
+			no_autoupdate=1 ;;
 		esac
 	done
 }
@@ -126,6 +128,7 @@ when providing a section name.\n\
 Example : man_reader sources=list will look for the sources.list man page (which is in section 5)"
 	echo -e "Options:"
 	printf "%-12b%b\n" "\t-h" "Display this help and exits"
+	printf "%-12b%b\n" "\t-n" "Runs the script without checking for update. Mainly for usage within scripts"
 	printf "%-12b%b\n" "\t-l page" "Lists the sections of the given man page"
 	printf "%-12b%b\n" "\t-i [PATH]" "Installs this script in the provided PATH or \
 $install_path if no path is provided\n\
@@ -151,9 +154,10 @@ toc(){
 
 main(){
 	declare -i option_help=0
+	declare -i no_autoupdate=0
 	declare option_install
 	declare -i option_list=0
-	declare optstring="ilh"
+	declare optstring="ilhn"
 	declare -l user_input
 	local ret_val
 
@@ -161,7 +165,7 @@ main(){
 	shift "$((OPTIND - 1))"
 	OPTIND=1
 	if [ "$option_help" -eq "1" ] ; then help ; fi
-	check_update
+	if [ "$no_autoupdate" -eq "0" ] ; then check_update ; fi
 	if [ "$option_install" != "" ] ; then install_script ; exit "$?" ; fi
 	source_utils
 	if [ "$option_list" -eq "1" ] ; then toc "$1" ; return "$?" ; fi
