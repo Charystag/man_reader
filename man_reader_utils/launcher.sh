@@ -84,6 +84,7 @@ Example: man or man.7"
 		echo -ne "$prompt\n$> "
 		read -r page
 		read_page "$page"
+		if [ "$page" = "" ] ; then continue ; fi
 		echo -e "$continue_prompt"
 		read -r -n 1 continue_value
 		echo
