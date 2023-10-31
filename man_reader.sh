@@ -23,7 +23,7 @@ source_utils(){
 	declare file
 	declare command
 
-	if [ "$MAN_SPLITTING" = "1" ] ; then return 0  ; fi
+	if [ "$MAN_SPLITTING" = "1" ] && [ "$1" = "" ] ; then return 0  ; fi
 	while [ "$i" -lt "${#utils[@]}" ]
 	do
 		file="${utils[$i]}"
