@@ -78,11 +78,10 @@ main_menu(){
 	continue_prompt="Would you like to read another page?[y/n]"
 	prompt="Please provide a man page to read:\n\
 You can provide an section to look in with an optionnal .\n\
-Example: man or man.7
-"
+Example: man or man.7"
 	while true
 	do
-		echo -e "$prompt"
+		echo -ne "$prompt\n$> "
 		read -r page
 		read_page "$page"
 		echo -e "$continue_prompt"

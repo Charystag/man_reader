@@ -15,7 +15,7 @@ export UTILS=1
 user_input(){
 	if [ "$2" = "" ] ; then echo "Function usage: user_input prompt var" ; return 1 ; fi
 	declare -n ref="$2"
-	echo -e "$1"
+	echo -ne "$1\n$> "
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
 # user input
