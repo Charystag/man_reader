@@ -141,7 +141,7 @@ build_regex(){
 	while [ "$i" -lt "${#input}" ]
 	do
 		tmp="${input:$i:1}"
-		case "$tmp" in ( [" ".'"''\(){}'] ) ret_val="$ret_val\\$tmp" ;;
+		case "$tmp" in ( [" ".'"''\(){}'/] ) ret_val="$ret_val\\$tmp" ;;
 						* ) ret_val="$ret_val$tmp" ;;
 		esac
 		((++i))
