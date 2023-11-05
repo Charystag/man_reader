@@ -2,7 +2,7 @@
 # shellcheck disable=SC1090 # sources will never be constant
 
 declare NAME="man_reader"
-declare VERSION_ID=3
+declare VERSION_ID=4
 
 export MAN_PAGES=1
 trap "echo Exiting..." EXIT
