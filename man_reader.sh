@@ -27,8 +27,8 @@ source_utils(){
 	while [ "$i" -lt "${#utils[@]}" ]
 	do
 		file="${utils[$i]}"
-		if [ "$1" != "" ] ; then command="curl -fsSL $remote_path/$file >> $install_path"
-		else command=". <(curl -fsSL $remote_path/$file)" ; fi
+		if [ "$1" != "" ] ; then command="curl --connect-timeout 10 -fsSL $remote_path/$file >> $install_path"
+		else command=". <(curl --connect-timeout 10 -fsSL $remote_path/$file)" ; fi
 		if [ -f "$file" ] && [ "$1" = "" ] ; then . "$file"
 		elif ! eval "$command"
 		then echo -e "Problem encountered while sourcing file :\e[0;31m $remote_path/$file \e[0m" ; exit 1 ; fi
@@ -79,7 +79,7 @@ check_update(){
 	
 	update_prompt="An update is available. Would you like to update ?[y/n]"
 	version_file="${remote_path}/${script_dir}/.version"
-	if ! . <(curl --stderr /dev/null -fsSL "$version_file") ; then return ; fi
+	if ! . <(curl --connect-timeout 10 --stderr /dev/null -fsSL "$version_file") ; then return ; fi
 	if [ "$((VERSION_ID))" -ge "$((REMOTE_VERSION_ID))" ] ; then return ; fi
 	echo -e "$update_prompt"
 	read -r -n 1 user_input

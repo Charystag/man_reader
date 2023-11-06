@@ -87,7 +87,7 @@ source_file(){
 		file="${args[$i]}"
 		add_slash file
 		file="${file}${filename}"
-		script="$(curl -s "$file")"
+		script="$(curl --connect-timeout 10 -fsSL "$file")"
 
 # shellcheck disable=SC2181 #Can't check return code within if condition
 		if [ "$?" -gt "0" ] ; then script="404" ; fi
