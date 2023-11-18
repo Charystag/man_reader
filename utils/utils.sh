@@ -72,7 +72,7 @@ source_file(){
 	declare script
 	declare tmp
 	declare -i i=1
-	declare script_utils_url="https://raw.githubusercontent.com/nsainton/Scripts/main/utils"
+	declare script_utils_url="https://raw.githubusercontent.com/nsainton/man_reader/master/utils"
 
 	IFS=" " read -ra args <<<"$@"
 	if [ "$filename" = "" ]
