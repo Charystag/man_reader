@@ -1,5 +1,7 @@
 # Man Reader - A nice command-line viewer for man pages
 
+> :fr: French documentation available [here](/docs/README.fr.md)
+
 > :warning: This script needs bash version >=4 to run
 > You can check your version with `bash --version`
 
