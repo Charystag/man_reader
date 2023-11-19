@@ -5,17 +5,6 @@
 > :warning: This script needs bash version >=4 to run
 > You can check your version with `bash --version`
 
-<blockquote>
-
-:bulb: A new version with a lot of fixes, and 
-that run autoupdates is available! You can run 
-```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -i
-```
-to install
-
-</blockquote>
-
 ## Preamble - How to navigate the man ?
 
 You must already know that we can use the mouse scroll and the ups and down
@@ -38,9 +27,9 @@ to achieve the same result.
 
 ### Short intro
 
-This script allow you to navigate the man pages in a more friendly manner
-To do so, it parses the man page to retrieve the sections and subsections
-It then outputs a table of contents that looks like this one
+This script allow you to navigate the man pages in a more friendly manner.
+To do so, it parses the man page to retrieve the sections and subsections.
+It then outputs a table of contents that looks like this one.
 (Example is from `man man.1` man page, which is like `man 1 man`)
 
 ![man 1 man table of contents](/assets/man1_toc.png "man 1 man")
@@ -84,7 +73,7 @@ That is, if we try for example to print the number `7` instead of number `8`. We
 
 ### Run from online source
 
-To run the script, you can run the following command in your terminal
+To run the script, you can run the following command in your terminal :
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh)
