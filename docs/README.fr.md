@@ -42,10 +42,10 @@ Ce script permet à son utilisateur de naviger à travers les pages de man
 d'une maniere plus agréable. Il parse le man pour récuperer les sections
 et les subsections puis affiche la table des matières qui ressemble à la
 suivante.
-(L'exemple est tire de la page affichée par la commande `man man.1`, qui peut
-aussi se lancer avec `man 1 man`)
+(L'exemple est tire de la page affichée par la commande `man printf.3`, qui peut
+aussi se lancer avec `man 3 printf`)
 
-![table des matières de man 1 man](/assets/man1_toc.png "man 1 man")
+![table des matières de man 3 printf](/assets/printf3_toc.png "man 3 printf")
 
 ### Actions de base
 
@@ -67,22 +67,22 @@ une autre page de man à afficher
 
 Essayons, par exemple, d'afficher le nombre `8`. Nous obtenons cet affichage dans le terminal :
 
-![man.1 section 7.1](/assets/man1-8.png "section 7.1 of man in section 1")
+![printf.3 section 3.1](/assets/printf3-4.png "section 3.1 of printf in section 3")
 
 > :bulb: Lors de l'affichage d'une page, vous pouvez presser `k` pour ajouter des espaces en
-> bas de la page. Ceci nous donne l'affichage suivant : 
+> bas de la page. Ceci nous donne l'affichage suivant si nous essayons par exemple d'afficher le numero `1`: 
 
-![man.1 section 7.1 padded](/assets/man1-8_padded.png "section 7.1 of man in section 1 with padding")
+![printf.3 section 1 padded](/assets/printf3-1_padded.png "section 1 of printf in section 3 with padding")
 
 > :warning: Attention, au moment de l'écriture de cette documentation, le script ne fait pas
 > la distinction entre l'affichage des sections et des sous-sections. Cela signifie que si nous
-> decidons d'afficher la section 7 (numero 7 sur notre exemple), le script va afficher du numero
-> 7 au numero 8, soit la partie de la section 7 qui se situe avant la première sous-section
+> decidons d'afficher la section 3 (numero 3 sur notre exemple), le script va afficher du numero
+> 3 au numero 4, soit la partie de la section 3 qui se situe avant la première sous-section
 
-Par exemple, si nous essayons d'afficher le numero `7` à la place du numero `8`, nous obtenons
+Par exemple, si nous essayons d'afficher le numero `3` à la place du numero `4`, nous obtenons
 l'affichage suivant :
 
-![man.1 section 7](/assets/man1-7.png "section 7 of man in section 1")
+![printf.3 section 3](/assets/printf3-3.png "section 3 of printf in section 3")
 
 ## Comment utiliser ce script ?
 
@@ -163,4 +163,4 @@ Il y à deux manieres de contribuer à ce projet
 
 Cliquez sur la photo pour ouvrir la vidéo sur youtube
 
-[![preview](/assets/preview.png)](https://youtu.be/no9y0Kk-3hs)
+[![preview](/assets/thumbnail.png)](https://youtu.be/no9y0Kk-3hs)
