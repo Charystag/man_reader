@@ -148,4 +148,4 @@ There are two ways to contribute to this project
 
 Click on the picture to open the video on youtube
 
-[![preview](/assets/thumbnail.png)](https://youtu.be/no9y0Kk-3hs)
+[![preview](/assets/thumbnail.png)](https://youtu.be/vxxwOgG8tA4)

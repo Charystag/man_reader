@@ -163,4 +163,4 @@ Il y à deux manieres de contribuer à ce projet
 
 Cliquez sur la photo pour ouvrir la vidéo sur youtube
 
-[![preview](/assets/thumbnail.png)](https://youtu.be/no9y0Kk-3hs)
+[![preview](/assets/thumbnail.png)](https://youtu.be/vxxwOgG8tA4)
