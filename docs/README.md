@@ -30,9 +30,9 @@ to achieve the same result.
 This script allow you to navigate the man pages in a more friendly manner.
 To do so, it parses the man page to retrieve the sections and subsections.
 It then outputs a table of contents that looks like this one.
-(Example is from `man man.1` man page, which is like `man 1 man`)
+(Example is from `man printf.3` man page, which is like `man 3 printf`)
 
-![man 1 man table of contents](/assets/man1_toc.png "man 1 man")
+![man 3 printf table of contents](/assets/printf3_toc.png "man 3 printf")
 
 ### Basic actions
 
@@ -51,23 +51,23 @@ and prompt the user for another man page to read
 
 ### Section rendering
 
-Let's try, for example, to print the number `8`. We get this output in the terminal :
+Let's try, for example, to print the number `4`. We get this output in the terminal :
 
-![man.1 section 7.1](/assets/man1-8.png "section 7.1 of man in section 1")
+![printf.3 section 3.1](/assets/printf3-4.png "section 3.1 of printf in section 3")
 
 > :bulb: When rendering any page, you can press `k` to pad with spaces on the bottom.
-> This gives us the following output : 
+> This gives us the following output if we try to print the number `1`: 
 
-![man.1 section 7.1 padded](/assets/man1-8_padded.png "section 7.1 of man in section 1 with padding")
+![printf.3 section 1 padded](/assets/printf3-1_padded.png "section 1 of printf in section 3 with padding")
 
 > :warning: Beware that at the present time, this script doesn't distinguish between rendering
-> sections and subsections. This means that, if we decide to render the section 7 (number 7 on our example)
-> the script will render from number 7 to number 8, which is the part of section 7 that is before the first
+> sections and subsections. This means that, if we decide to render the section 3 (number 3 on our example)
+> the script will render from number 3 to number 4, which is the part of section 3 that is before the first
 > subsection
 
-That is, if we try for example to print the number `7` instead of number `8`. We get the following output :
+That is, if we try for example to print the number `3` instead of number `4`. We get the following output :
 
-![man.1 section 7](/assets/man1-7.png "section 7 of man in section 1")
+![printf.3 section 3](/assets/printf3-3.png "section 3 of printf in section 3")
 
 ## How to use this script ?
 
@@ -148,4 +148,4 @@ There are two ways to contribute to this project
 
 Click on the picture to open the video on youtube
 
-[![preview](/assets/preview.png)](https://youtu.be/no9y0Kk-3hs)
+[![preview](/assets/thumbnail.png)](https://youtu.be/no9y0Kk-3hs)
