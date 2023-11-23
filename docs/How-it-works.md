@@ -26,4 +26,27 @@ man section we are searching in
 2.	Using a RegEx to only keep the parts of the query that interest us and act upon them
 
 > :bulb: Using the first option would be a cleaner solution but as it is a good occasion of learning how
-> RegExes work, we will go for the second choice.
+> RegExes work and as I didn't know about the first solution before writing this documentation, 
+> we will go for the second choice.
+
+<blockquote>
+
+:bulb: You can run the command :
+```bash
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) regex.7 DESCRIPTION
+```
+to get a full description of how a Regular Expression works
+
+</blockquote>
+
+Here is the RegEx that I use to retrieve the man page in the right section : `\<[^ ]+man/man${section}[^ ]+\>`.
+Here is a walkthrough of what this expression does :
+
+1.	The character `\<` matches the empty string at the beginning of a word
+2.	The bracket expression `[^ ]` matches any character that is not a space
+3.	The `+` matches 1 or more of the preceding token. So that the expression `[^ ]+` matches one or more character that is not a space
+4.	The string `man/man` matches the litteral string "man/man"
+5.	The variable `${section}` will be replaced by the litteral section number provided as an input
+6.	The character  `\>` matches the empty string at the end of a word
+
+The expression matches all the strings containing the substring "man/man"
