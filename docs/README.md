@@ -76,14 +76,14 @@ That is, if we try for example to print the number `3` instead of number `4`. We
 To run the script, you can run the following command in your terminal :
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh)
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh)
 ```
 
 <blockquote>
 
 :bulb: You can run 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) bash 30
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) bash 'Process Substitution'
 ```
 For more information about **Process Substitution**
 
@@ -97,7 +97,7 @@ When running the script that way, arguments can be provided on the command line 
 
 To install the script locally, at `$HOME/.local/bin/man_reader`, you can run 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -i
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -i
 ```
 Then, if you add the path `$HOME/.local/bin` to the variable PATH, you will be able to run the script with
 ```bash
@@ -111,7 +111,7 @@ man_reader
 
 To print only the table of content, you can run
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -l [page]
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -l [page]
 ```
 With an optionnal page as an argument. If no page is entered, you will be prompted for a man page when the script starts
 It will then print the toc of said man page and exit
@@ -120,7 +120,7 @@ It will then print the toc of said man page and exit
 
 When running the following command :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) page [section]
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) page [section]
 ```
 You can print the required page (which can be passed as an argument with the format page.man\_section)
 - If no (optionnal) section is provided, it will open the main menu for the required man page and exit when asked for
@@ -134,7 +134,7 @@ the section string is treated as one argument.
 
 Run the following command :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -h
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -h
 ```
 To get help
 

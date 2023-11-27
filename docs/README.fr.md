@@ -3,17 +3,6 @@
 > :warning: Ce script nécessite une version de bash >= pour s'éxecuter.
 > Vous pouvez vérifier votre version avec `bash --version`
 
-<blockquote>
-
-:bulb: Une nouvelle version avec beaucoup moins de bugs, et avec
-des updates automatiques est disponible! Vous pouvez lancer 
-```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -i
-```
-pour l'installer
-
-</blockquote>
-
 ## Preambule - Comment naviguer à travers le man ?
 
 Vous devez déjà savoir que l'on peut scroller avec les souris et utiliser
@@ -91,14 +80,14 @@ l'affichage suivant :
 Pour éxecuter ce script, vous pouvez lancer la commande suivante dans votre terminal :
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh)
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh)
 ```
 
 <blockquote>
 
 :bulb: Vous pouvez lancer
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) bash 30
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) bash 'Process Substitution'
 ```
 Pour plus d'information sur la **Process Substitution**
 
@@ -113,7 +102,7 @@ comme avec la commande `./man_reader.sh`
 
 Pour installer le script localement, dans `$HOME/.local/bin/man_reader`, vous pouvez lancer :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -i
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -i
 ```
 Par la suite, en ajoutant le chemin `$HOME/.local/bin/man_reader` à la variable PATH, vous pourrez lancer le script avec :
 ```bash
@@ -127,7 +116,7 @@ man_reader
 
 Pour afficher seulement la table des matières de la page de man, vous pouvez lancer :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -l [page]
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -l [page]
 ```
 Avec une page en argument optionnel. Si aucune page n'est entree, une page sera demandée en entrée au demarrage du script.
 La table des matières de la page s'affichera et le script se terminera
@@ -136,7 +125,7 @@ La table des matières de la page s'affichera et le script se terminera
 
 En lancant la commande suivante :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -page [section]
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -page [section]
 ```
 Il est  possible d'afficher la page demandée (qui peut etre passee en argument en utilisant le format page.man\_section)
 - Si aucune section (optionnelle) n'est donnée, le script ouvrira le menu principal pour la page de man et quitter quand l'utilisateur le demande
@@ -149,7 +138,7 @@ Les sections peuvent etre specifiées dans deux formats :
 
 Executez la commande suivante :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -h
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -h
 ```
 Pour obtenir de l'aide sur l'utilisation du script
 
