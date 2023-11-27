@@ -19,7 +19,7 @@ user_input(){
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
 # user input
-	read -r ref
+	read -re ref
 }
 
 

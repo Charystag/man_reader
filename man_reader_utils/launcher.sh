@@ -82,7 +82,7 @@ Example: printf or printf.3"
 	while true
 	do
 		echo -ne "$prompt\n$> "
-		read -r page
+		read -re page
 		read_page "$page"
 		if [ "$page" = "" ] ; then continue ; fi
 		echo -e "$continue_prompt"
