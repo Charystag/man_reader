@@ -124,10 +124,10 @@ bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainto
 ```
 You can print the required page (which can be passed as an argument with the format page.man\_section)
 - If no (optionnal) section is provided, it will open the main menu for the required man page and exit when asked for
-- If a section is provided, it will print the required section in the required man\_page (if found). Section can be specified \
+- If a section is provided, it will print the required section in the required man\_page (if found). Section can be specified 
 in two formats :
 	- A number (between 1 and the number of section in the toc) (ex : `man_reader bash 30`)
-	- A string describing the section (ex : `man_reader bash 'Process Substitution'`). Don't forget the `"` or `'` so that \
+	- A string describing the section (ex : `man_reader bash 'Process Substitution'`). Don't forget the `"` or `'` so that 
 the section string is treated as one argument.
 
 ### Get help
