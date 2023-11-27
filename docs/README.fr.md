@@ -125,7 +125,7 @@ La table des matières de la page s'affichera et le script se terminera
 
 En lancant la commande suivante :
 ```bash
-bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) -page [section]
+bash <(curl --connect-timeout 10 -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) page [section]
 ```
 Il est  possible d'afficher la page demandée (qui peut etre passee en argument en utilisant le format page.man\_section)
 - Si aucune section (optionnelle) n'est donnée, le script ouvrira le menu principal pour la page de man et quitter quand l'utilisateur le demande
