@@ -49,4 +49,12 @@ Here is a walkthrough of what this expression does :
 5.	The variable `${section}` will be replaced by the litteral section number provided as an input
 6.	The character  `\>` matches the empty string at the end of a word
 
-The expression matches all the strings containing the substring "man/man"
+The expression matches all the strings containing the substring "man/man" followed by an optionnal section number and then returns the page in the right section if found. <br/>
+If the page is not found, the command : `"$(whereis "$page" | grep -E -o 'man[[:digit:]]+' | grep -E -o '[[:digit:]]+' | uniq | tr '\n' '-' | rev | cut -c 2- | rev)"` allows to list all the available sections. Here is what is does :
+
+1.	The command `whereis "$page"` allows to retrieve all the paths to the command
+2.	The command `grep -E -o 'man[[:digit:]]+'` allows to retrive all the paths containing man concatenated with one or more digits
+3.	The command `grep -E -o '[[:digit:]]+'` allows to keep only the parts of the precedent output that contains a digit
+4.	The pipeline `uniq | tr '\n' '-' | rev | cut -c 2- | rev` is there for formatting and allows to list, separating them by hyphens, the sections in which man\_pages are found.
+
+
