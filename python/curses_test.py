@@ -50,11 +50,11 @@ win.addstr("Hello World")
 win.addstr(2, 10, "Hello World")
 win.noutrefresh()
 curses.doupdate()
-time.sleep(1)
+time.sleep(5)
 win.move(0,0)
 win.addstr("Monty Python!")
 win.refresh()
-time.sleep(1)
+time.sleep(5)
 win.clear()
 curses.endwin()
 
@@ -71,7 +71,7 @@ for y in range(0, 99):
 # (20, 75) : coordinate of lower-right corner of window area to be
 #			filled with pad content.
 pad.refresh(0, 0, 5, 5, 20, 75)
-time.sleep(1)
+time.sleep(5)
 curses.endwin()
 stdscr = curses.initscr()
 curses.noecho()
