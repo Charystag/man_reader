@@ -1,0 +1,11 @@
+@basedir="$(pwd)"
+@tmpdir="$(mktemp -d)"
+@cd "$tmpdir"
+@if [ ! -f "man_reader.sh" ] ; then curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh -O ; fi
+man_reader | Calling the man_reader script
+man_reader printf.3|Calling the man_reader for the command printf and looking in the section 3 of the man. It is equivalent to the call : man 3 printf
+man_reader -l bash|Listing the table of contents of the bash man page
+man_reader bash "Process Substitution"|Printing the section "Process Substitution" of the bash man page
+man_reader -h|Printing help for the man reader
+@cd -
+@if [ "${OLDPWD:0:8}" = "/tmp/tmp" ] ; then rm -rf "${OLDPWD}" ; fi
